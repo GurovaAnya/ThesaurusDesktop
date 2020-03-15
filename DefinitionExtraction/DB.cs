@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace DefinitionExtraction
 {
-    class DB
+    class DB:IDisposable
     {
         static string con = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
@@ -25,15 +25,17 @@ namespace DefinitionExtraction
             using (SqlCommand cmd = sqlConnection.CreateCommand())
             {
                 if (like == "")
-                    cmd.CommandText = @"SELECT d.Descriptor_content + ' (' + d.Relator + ')' as 'Дескриптор', d.id 
-FROM dbo.Descriptors d
-order by Descriptor_content";
-                else cmd.CommandText =
-@"SELECT d.Descriptor_content + ' (' + d.Relator + ')' as 'Дескриптор', d.id
-FROM dbo.Descriptors d
-WHERE d.Descriptor_content like '' + @like + '%'
-order by Descriptor_content";
-                //cmd.Parameters.AddWithValue("@like", "\'"+like+ "%\'");
+                    cmd.CommandText = 
+                        "SELECT d.Descriptor_content + ' (' + d.Relator + ')' as 'Дескриптор', d.id " +
+                        "FROM dbo.Descriptors d " +
+                        "order by Descriptor_content";
+
+                else cmd.CommandText = 
+                        "SELECT d.Descriptor_content + ' (' + d.Relator + ')' as 'Дескриптор', d.id " +
+                        "FROM dbo.Descriptors d " +
+                        "WHERE d.Descriptor_content like '' + @like + '%' " +
+                        "order by Descriptor_content";
+
                 cmd.Parameters.AddWithValue("@like", like);
 
 
@@ -45,36 +47,18 @@ order by Descriptor_content";
         }
 
 
-        /// <summary>
-        /// Добавление термина и определения
-        /// </summary>
-        /// <param name="descriptor"></param>
-        /// <param name="stL"></param>
-        /// <param name="stC"></param>
-        /// <param name="eL"></param>
-        /// <param name="eC"></param>
-        /// <param name="description"></param>
-        /// <param name="stLD"></param>
-        /// <param name="stCD"></param>
-        /// <param name="eLD"></param>
-        /// <param name="eCD"></param>
-        /// <param name="relator"></param>
-        /// <returns></returns>
         public bool AddDescriptor(string descriptor, int stL, int stC, int eL, int eC,
             string description, int stLD, int stCD, int eLD, int eCD, string relator = "")
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
             {
-                //sqlConnection.Open();
+                sqlConnection.Open();
 
                 SqlCommand command = sqlConnection.CreateCommand();
                 SqlTransaction transaction;
 
-                // Start a local transaction.
                 transaction = sqlConnection.BeginTransaction("AddDescriptor");
 
-                // Must assign both transaction object and connection
-                // to Command object for a pending local transaction
                 command.Connection = sqlConnection;
                 command.Transaction = transaction;
 
@@ -89,44 +73,28 @@ order by Descriptor_content";
                     command.Parameters.AddWithValue("@eL", eL);
                     command.Parameters.AddWithValue("@eC", eC);
                     command.Parameters.AddWithValue("@relator", relator);
-                    //command.ExecuteNonQuery();
-
-
-                    //int des_id = Convert.ToInt32(command.ExecuteScalar());
                     var des_id = command.ExecuteScalar();
 
                     command.Parameters.AddWithValue("@descriptor_id", des_id);
 
                     command.CommandText =
-                        "Insert into Definitions VALUES (@description, @stLD, @stCD, @eLD, @eCD)" +
-                        "select scope_identity()";
+                        "Insert into Definitions(definition_content, start_line, start_char, end_line, end_char, descriptor_id, insert_date, user_id)" +
+                        " VALUES (@description, @stLD, @stCD, @eLD, @eCD, @descriptor_id,CURRENT_TIMESTAMP, @user_id)";                    
                     command.Parameters.AddWithValue("@description", description);
                     command.Parameters.AddWithValue("@stLD", stLD);
                     command.Parameters.AddWithValue("@stCD", stCD);
                     command.Parameters.AddWithValue("@eLD", eLD);
                     command.Parameters.AddWithValue("@eCD", eCD);
+                    command.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
 
+                    command.ExecuteNonQuery();
 
-                    //int def_id = Convert.ToInt32(command.ExecuteScalar());
-                    var def_id = command.ExecuteScalar();
-
-                    command.Parameters.AddWithValue("@definition_id", def_id);
-
-                    command.CommandText =
-                        "Insert into Connections (descriptor_id, definition_id, insert_date) " +
-                        "VALUES (@descriptor_id, @definition_id, CURRENT_TIMESTAMP)";
-
-                    
-
-                    // Attempt to commit the transaction.
                     transaction.Commit();
+                    
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    //Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
-                    //Console.WriteLine("  Message: {0}", ex.Message);
-
                     //// Attempt to roll back the transaction.
                     try
                     {
@@ -134,20 +102,98 @@ order by Descriptor_content";
                     }
                     catch (Exception ex2)
                     {
-                        //// This catch block will handle any errors that may have occurred
-                        //// on the server that would cause the rollback to fail, such as
-                        //// a closed connection.
-                        //Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
-                        //Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
                 }
             }
         }
 
+        public bool AddDescriptor(string descriptor, int stL, int stC, int eL, int eC,
+           string description, int stLD, int stCD, int eLD, int eCD, string [] ascriptors, string relator = "")
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            {
+                sqlConnection.Open();
+
+                SqlCommand command = sqlConnection.CreateCommand();
+                SqlTransaction transaction;
+
+                transaction = sqlConnection.BeginTransaction("AddDescriptor");
+
+                command.Connection = sqlConnection;
+                command.Transaction = transaction;
+
+                try
+                {
+                    command.CommandText =
+                        "Insert into Descriptors VALUES (@descriptor, @stL, @stC, @eL, @eC, @relator)" +
+                        "select scope_identity()";
+                    command.Parameters.AddWithValue("@descriptor", descriptor);
+                    command.Parameters.AddWithValue("@stL", stL);
+                    command.Parameters.AddWithValue("@stC", stC);
+                    command.Parameters.AddWithValue("@eL", eL);
+                    command.Parameters.AddWithValue("@eC", eC);
+                    command.Parameters.AddWithValue("@relator", relator);
+                    var des_id = command.ExecuteScalar();
+
+                    command.Parameters.AddWithValue("@descriptor_id", (decimal)des_id);
+
+                    command.CommandText =
+                        "Insert into Definitions(definition_content, start_line, start_char, end_line, end_char, descriptor_id, insert_date, user_id)" +
+                        " VALUES (@description, @stLD, @stCD, @eLD, @eCD, @descriptor_id,CURRENT_TIMESTAMP, @user_id)";
+                    command.Parameters.AddWithValue("@description", description);
+                    command.Parameters.AddWithValue("@stLD", stLD);
+                    command.Parameters.AddWithValue("@stCD", stCD);
+                    command.Parameters.AddWithValue("@eLD", eLD);
+                    command.Parameters.AddWithValue("@eCD", eCD);
+                    command.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
+
+                    command.ExecuteNonQuery();
+
+                    command.Parameters.AddWithValue("@ascriptor", string.Empty);
+                    foreach (string ascriptor in ascriptors)
+                    {
+                        command.CommandText = "insert into Ascriptors(ascriptor_content, descriptor_id) values (@ascriptor, @descriptor_id)";
+                        command.Parameters.RemoveAt("@ascriptor");
+                        command.Parameters.AddWithValue("@ascriptor", ascriptor);
+                        command.ExecuteNonQuery();
+
+                    }
+                    transaction.Commit();
+
+
+                    return true;
+                }
+                  catch (Exception ex)
+                {
+                    //// Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                    }
+                    return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
+
+        //public bool AddAscriptor(int descriptor_id, string ascriptor)
+        //{
+            
+        //}
 
         /// <summary>
-        /// Удаление термина
+        /// Удаление термина и всех его определений
         /// </summary>
         /// <param name="descriptorID">Идентификатор дескриптора</param>
         /// <returns></returns>
@@ -155,7 +201,7 @@ order by Descriptor_content";
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
             {
-
+                sqlConnection.Open();
                 SqlCommand command = sqlConnection.CreateCommand();
                 SqlTransaction transaction = sqlConnection.BeginTransaction("DeleteDescriptor");
 
@@ -167,37 +213,23 @@ order by Descriptor_content";
                 try
                 {
                     command.Parameters.AddWithValue("@descriptor_id", descriptorID);
-                    
-                    command.CommandText =
-                        "Select definition_id from Connections where descriptor_id = @descriptor_id";
-
-                    int def_id = -1;
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            def_id= (int)reader["definition_id"];
-                        }
-                    }
-                    command.Parameters.AddWithValue("@definition_id", def_id);
 
 
-                    
                     command.CommandText =
                         "Delete from Ascriptors where descriptor_id = @descriptor_id ";
                     command.ExecuteNonQuery();
                     command.CommandText =
-                        "Delete from DefinitionLinks where rel_descriptor_id=@descriptor_id or definition_id = @definition_id ";
+                        "Delete from DefinitionLinks where descriptor_id=@descriptor_id or definition_id = " +
+                        "any(select definition_id from definitions " +
+                        "where descriptor_id=@descriptor_id)";
                     command.ExecuteNonQuery();
                     command.CommandText =
-                        "Delete from Connections where descriptor_id = @descriptor_id ";
+                        "Delete from Definitions where descriptor_id = @descriptor_id ";
                     command.ExecuteNonQuery();
                     command.CommandText =
                         "Delete from Descriptors where id = @descriptor_id ";
                     command.ExecuteNonQuery();
-                    command.CommandText =
-                        "Delete from Definitions where id = @definition_id ";
-                    command.ExecuteNonQuery();
+
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -205,9 +237,6 @@ order by Descriptor_content";
                 }
                 catch (Exception ex)
                 {
-                    //Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
-                    //Console.WriteLine("  Message: {0}", ex.Message);
-
                     //// Attempt to roll back the transaction.
                     try
                     {
@@ -215,17 +244,78 @@ order by Descriptor_content";
                     }
                     catch (Exception ex2)
                     {
-                        //// This catch block will handle any errors that may have occurred
-                        //// on the server that would cause the rollback to fail, such as
-                        //// a closed connection.
-                        //Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
-                        //Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally 
+                {
+                    sqlConnection.Close();
                 }
             }
         }
 
+        public bool ChangeDescription(int id, string descriptor, int stL, int stC, int eL, int eC,
+            string description, int stLD, int stCD, int eLD, int eCD, string relator = "")
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            {
+                sqlConnection.Open();
+
+                SqlCommand command = sqlConnection.CreateCommand();
+                SqlTransaction transaction;
+
+                transaction = sqlConnection.BeginTransaction("UpdateDescriptor");
+
+                command.Connection = sqlConnection;
+                command.Transaction = transaction;
+
+                try
+                {
+                    //command.CommandText =
+                    //    "Update Descriptors set descriptor_content = @descriptor, start_line=@stL, start_char=@stC,end_line=@eL, end_char=@eC, relator=@relator" +
+                    //    "where id = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@descriptor", descriptor);
+                    command.Parameters.AddWithValue("@stL", stL);
+                    command.Parameters.AddWithValue("@stC", stC);
+                    command.Parameters.AddWithValue("@eL", eL);
+                    command.Parameters.AddWithValue("@eC", eC);
+                    command.Parameters.AddWithValue("@relator", relator);
+                    //command.ExecuteNonQuery();
+
+                    command.CommandText =
+                        "Update Definitions set definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD" +
+                        " where descriptor_id= @id";
+                    command.Parameters.AddWithValue("@description", description);
+                    command.Parameters.AddWithValue("@stLD", stLD);
+                    command.Parameters.AddWithValue("@stCD", stCD);
+                    command.Parameters.AddWithValue("@eLD", eLD);
+                    command.Parameters.AddWithValue("@eCD", eCD);
+                    command.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
+
+                    command.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    //// Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                    }
+                    return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
 
         /// <summary>
         /// Получение термина по идентификатору
@@ -256,13 +346,14 @@ order by Descriptor_content";
                         }
                     }
                     reader.Close();
-                    cmd.CommandText = "select definition_content, start_line, start_char, end_line, end_char from definitions " +
-                        "where id = any(select definition_id from connections where descriptor_id=descriptor_id)";
+                    cmd.CommandText = "select ID, definition_content, start_line, start_char, end_line, end_char from definitions " +
+                        "where descriptor_id = @descriptor_id";
                     reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
                         Definition def = new Definition();
+                        def.ID = (int)reader["id"];
                         def.Content = reader["definition_content"].ToString();
                         def.StartLine = (int)reader["start_line"];
                         def.StartChar = (int)reader["start_char"];
@@ -289,6 +380,7 @@ order by Descriptor_content";
             {
                 SqlCommand command = sqlConnection.CreateCommand();
                 SqlTransaction transaction;
+                sqlConnection.Open();
 
                 // Start a local transaction.
                 transaction = sqlConnection.BeginTransaction("AddUser");
@@ -307,8 +399,8 @@ order by Descriptor_content";
                     command.Parameters.AddWithValue("@lastName", user.LastName);
                     command.Parameters.AddWithValue("@email", user.Email);
                     command.Parameters.AddWithValue("@password", user.PassHash);
-                    command.ExecuteNonQuery();
-
+                    var ID = command.ExecuteScalar();
+                    user.ID = int.Parse(ID.ToString());
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -325,6 +417,10 @@ order by Descriptor_content";
                     {
                     }
                     return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
                 }
             }
 
@@ -344,12 +440,13 @@ order by Descriptor_content";
                 using (SqlCommand cmd = sqlConnection.CreateCommand())
                 {
                     cmd.Parameters.AddWithValue("@email", user.Email);
-                    cmd.CommandText = "select first_name, last_name from users " +
+                    cmd.CommandText = "select ID, first_name, last_name from users " +
                         "where email=@email";
                     SqlDataReader reader = cmd.ExecuteReader();
                     {
                         if (reader.Read())
                         {
+                            user.ID = (int)reader["ID"];
                             user.FirstName = reader["first_name"].ToString().Trim();
                             user.LastName = reader["last_name"].ToString().Trim();
                             returned = true;
@@ -361,6 +458,117 @@ order by Descriptor_content";
             }
             return returned;
         }
+
+        public bool AddRelation(int des1ID, int des2ID, int relationID)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            {
+                SqlCommand command = sqlConnection.CreateCommand();
+                SqlTransaction transaction;
+                sqlConnection.Open();
+
+                // Start a local transaction.
+                transaction = sqlConnection.BeginTransaction("AddRelation");
+
+                command.Connection = sqlConnection;
+                command.Transaction = transaction;
+
+                try
+                {
+                    command.CommandText =
+                        "insert into Relations (Descriptor1_ID, Descriptor2_ID, Relation_type_ID) values (@d1, @d2,@rel);";
+                    command.Parameters.AddWithValue("@d1", des1ID);
+                    command.Parameters.AddWithValue("@d2", des2ID);
+                    command.Parameters.AddWithValue("@rel", relationID);
+                    command.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                    }
+                    return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
+
+        public List<Termin> DescriptorComplexQuery(Query query)
+        {
+            string RelDescCom;
+            bool noRelations=false;
+            List<Termin> results = new List<Termin>();
+            List<int> IDs = new List<int>();
+            
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = sqlConnection.CreateCommand())
+                {
+
+                    if (query.RelatedDescriptorID == -1 && query.RelationID==-1)
+                    {
+                        RelDescCom = string.Empty;
+                        noRelations = true;
+
+                    }
+                    else if (query.RelatedDescriptorID== -1)
+                    {
+                        cmd.Parameters.AddWithValue("@relation_id", query.RelationID);
+                        RelDescCom = "where relation_id = @relation_id ";
+                    }
+                    else if (query.RelationID==-1)
+                    {
+                        cmd.Parameters.AddWithValue("@descriptor_id", query.RelatedDescriptorID);
+                        RelDescCom = "where descriptor1_id = @descriptor_id ";
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@relation_id", query.RelationID);
+                        cmd.Parameters.AddWithValue("@descriptor_id", query.RelatedDescriptorID);
+                        RelDescCom = "where descriptor1_id = @descriptor_id and relation_type_id = @relation_id ";
+                    }
+
+                    if (query.UserAdded)
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
+                        if(noRelations)
+                            cmd.CommandText = "select descriptor_id as descriptor2_id from definitions where user_id = @user_id ";
+                        else
+                            cmd.CommandText = "select descriptor2_id from relations r inner join definitons s on d.descriptor_id = r.descriptor2_id " 
+                                + RelDescCom + "and where user_id=@user_id";
+                    }
+                    else 
+                        cmd.CommandText = "select descriptor2_id from relations "+ RelDescCom;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    {
+                        if (reader.Read())
+                            IDs.Add((int)reader["descriptor2_id"]);
+                    }
+                    reader.Close();
+                }
+                sqlConnection.Close();
+            }
+            foreach (int id in IDs)
+                results.Add(GetTermin(id));
+            return results;
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
     }
 }
 

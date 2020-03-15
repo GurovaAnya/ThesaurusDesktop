@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DefinitionExtraction
 {
-    class Definition
+    public class Definition
     {
+        public int ID { get; set; }
         public string Content { get; set; }
         public int StartLine { get; set; }
         public int StartChar { get; set; }

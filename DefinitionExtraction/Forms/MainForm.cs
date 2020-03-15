@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,23 +78,31 @@ namespace DefinitionExtraction
 
         private void InfoButton_Click(object sender, EventArgs e)
         {
-            
-            InfoView.Rows.Clear();
+            answersPanel.Controls.Clear();
             Termin termin = db.GetTermin((int)terminView.Rows[terminView.SelectedCells[0].RowIndex].Cells["id"].Value);
-            
-                InfoView.ColumnCount = 1;
-                InfoView.Rows.Add(termin.Descriptor);
-                if (!string.IsNullOrEmpty(termin.Relator.Trim()))
-                    InfoView.Rows.Add("(" + termin.Relator + ")");
-
-                InfoView.Rows.Add("Начало: строка "+termin.StartLine + ", символ: " + termin.StartChar);
-                InfoView.Rows.Add("Конец: строка " + termin.StartLine + ", символ: " + termin.StartChar);
-            foreach (Definition def in termin.Definitions)
+            foreach(Definition def in termin.Definitions)
             {
-                InfoView.Rows.Add("Определение: " + def.Content);
-                InfoView.Rows.Add("Начало: строка " + def.StartLine + ", символ: " + def.StartChar);
-                InfoView.Rows.Add("Конец: строка " + def.StartLine + ", символ: " + def.StartChar);
+                TerminControl tc = new TerminControl();
+                tc.Descriptor = termin.Descriptor;
+                tc.Definition = def.Content;
+                tc.Ascriptors = termin.Ascriptors;
+                tc.definitionId = def.ID;
+                tc.DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar };
+                tc.DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar };
+                tc.Click += new EventHandler(ItemClick);
+                answersPanel.Controls.Add(tc);
             }
+            ItemClick(answersPanel.Controls[0], null);
+            ChangeButton.Enabled = CurrentSession.CurrentUser != null;
+        }
+
+        private TerminControl CheckedItem;
+        private void ItemClick(object sender, EventArgs e)
+        {
+            if (CheckedItem != null)
+                CheckedItem.BorderStyle = BorderStyle.FixedSingle;
+            CheckedItem = (TerminControl)sender;
+            CheckedItem.BorderStyle = BorderStyle.Fixed3D;
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -117,15 +126,79 @@ namespace DefinitionExtraction
 
         public void OnUserChanged(object sender, EventArgs args)
         {
-            if (CurrentSession.CurrentUser!=null)
-            this.NameBox.Text = CurrentSession.CurrentUser.FirstName + " " + CurrentSession.CurrentUser.LastName;
+            bool reg = CurrentSession.CurrentUser != null;
+            if (reg)
+            {
+                this.NameBox.Text = CurrentSession.CurrentUser.FirstName + " " + CurrentSession.CurrentUser.LastName;
+            }
             else
                 this.NameBox.Text = "Войти";
+            DeleteButton.Enabled = reg;
+            AddButton.Enabled = reg;
+            ChangeButton.Enabled = reg;
+            addRelationButton.Enabled = reg;
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void addRelationButton_Click(object sender, EventArgs e)
+        {
+            AddRelationForm arf = new AddRelationForm();
+            arf.Show();
+        }
+
+        private void ChangeButton_Click(object sender, EventArgs e)
+        {
+            //answersPanel.Controls;
+            DescriptorForm df = new DescriptorForm();
+            Termin t = new Termin()
+            {
+                Descriptor = CheckedItem.Descriptor,
+                StartLine = CheckedItem.DescriptorLocation[0],
+                StartChar = CheckedItem.DescriptorLocation[1],
+                EndLine = CheckedItem.DescriptorLocation[2],
+                EndChar = CheckedItem.DescriptorLocation[3]
+            };
+            df.Termin = t;
+            Definition d = new Definition()
+            {
+                ID = CheckedItem.definitionId,
+                Content = CheckedItem.Definition,
+                StartLine = CheckedItem.DefinitionLocation[0],
+                StartChar = CheckedItem.DefinitionLocation[1],
+                EndLine = CheckedItem.DefinitionLocation[2],
+                EndChar = CheckedItem.DefinitionLocation[3]
+            };
+            df.id = CheckedItem.definitionId;
+            df.Definition = d;
+            df.Show();
+            
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "excel files (*.xls;*.xlsx)|*.xls;*.xlsx|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    MessageBox.Show("Добавлено определений: "+ ExcelProc.ExcelP(filePath));
+                }
+            }
+            ShowTermins();
         }
     }
 }

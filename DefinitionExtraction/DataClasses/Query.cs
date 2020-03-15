@@ -9,13 +9,13 @@ namespace DefinitionExtraction
     public enum ObjectType {Дескриптор=0, Аскриптор=1, Определение=2, Связь=3};
     class Query
     {
-        private string relationType;
+        private int relationType;
         private DateTime toDate;
 
         public ObjectType ObjectType;
 
-        public string RelatedDescriptor { get; set; }     
-        public string RelationType
+        public int RelatedDescriptorID { get; set; } = -1;   
+        public int RelationID
         {
             get
             {
@@ -26,7 +26,7 @@ namespace DefinitionExtraction
                 if (ObjectType == ObjectType.Дескриптор)
                     relationType = value;
                 else
-                    relationType = null;
+                    relationType = -1;
             }
         }
         public bool UserAdded;
@@ -45,19 +45,21 @@ namespace DefinitionExtraction
             }
         }
 
-        public Query(ObjectType ot, string relatedDescriptor, string RelationType, bool userAdded, DateTime fromDate, DateTime toDate)
+        public Query(ObjectType ot, int relatedDescriptor, int RelationType, bool userAdded, DateTime fromDate, DateTime toDate)
         {
             this.ObjectType = ot;
-            this.RelatedDescriptor = relatedDescriptor;
+            this.RelatedDescriptorID = relatedDescriptor;
+            this.RelationID = relationType;
             this.UserAdded = userAdded;
             this.FromDate = fromDate;
             this.ToDate = toDate;
         }
 
-        public Query(ObjectType ot, string relatedDescriptor, string RelationType, bool userAdded)
+        public Query(ObjectType ot, int relatedDescriptor, int relationType, bool userAdded)
         {
             this.ObjectType = ot;
-            this.RelatedDescriptor = relatedDescriptor;
+            this.RelatedDescriptorID = relatedDescriptor;
+            this.RelationID = relationType;
             this.UserAdded = userAdded;
         }
     }

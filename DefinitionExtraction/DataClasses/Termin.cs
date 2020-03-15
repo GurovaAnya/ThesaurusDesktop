@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DefinitionExtraction
 {
-    class Termin
+    public class Termin
     {
         public string Descriptor { get;  set; }
         public string Relator { get; set; }
@@ -15,6 +15,7 @@ namespace DefinitionExtraction
         public int StartChar { get; set; }
         public int EndLine { get; set; }
         public int EndChar { get; set; }
+        public List<string> Ascriptors { get; set; }
         
 
         public Termin()
@@ -30,7 +31,6 @@ namespace DefinitionExtraction
             StartChar = sC;
             EndLine = eL;
             EndChar = eC;
-           
         }
     }
 }

@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ascriptortypesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dEDatabaseDataSet = new DefinitionExtraction.DEDatabaseDataSet();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.QueryGrid = new System.Windows.Forms.DataGridView();
             this.objectColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,45 +48,32 @@
             this.StartDateBox = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.DescriptorBox = new System.Windows.Forms.ComboBox();
-            this.descriptorsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.descriptorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dEDatabaseDataSet = new DefinitionExtraction.DEDatabaseDataSet();
             this.RelationTypeBox = new System.Windows.Forms.ComboBox();
             this.relationtypesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.DescriptorLabel = new System.Windows.Forms.Label();
-            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.usersTableAdapter = new DefinitionExtraction.DEDatabaseDataSetTableAdapters.UsersTableAdapter();
-            this.descriptorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.descriptorsTableAdapter = new DefinitionExtraction.DEDatabaseDataSetTableAdapters.DescriptorsTableAdapter();
             this.AddButton = new System.Windows.Forms.Button();
             this.QueryButton = new System.Windows.Forms.Button();
+            this.descriptorsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usersTableAdapter = new DefinitionExtraction.DEDatabaseDataSetTableAdapters.UsersTableAdapter();
+            this.descriptorsTableAdapter = new DefinitionExtraction.DEDatabaseDataSetTableAdapters.DescriptorsTableAdapter();
             this.relation_typesTableAdapter = new DefinitionExtraction.DEDatabaseDataSetTableAdapters.Relation_typesTableAdapter();
             this.usersBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.ascriptortypesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dEDatabaseDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.ascriptortypesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.answersPanel = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.QueryGrid)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.relationtypesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dEDatabaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.relationtypesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ascriptortypesBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dEDatabaseDataSet
-            // 
-            this.dEDatabaseDataSet.DataSetName = "DEDatabaseDataSet";
-            this.dEDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(22, 300);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(812, 124);
-            this.dataGridView1.TabIndex = 3;
             // 
             // QueryGrid
             // 
@@ -280,12 +264,17 @@
             this.DescriptorBox.Name = "DescriptorBox";
             this.DescriptorBox.Size = new System.Drawing.Size(151, 24);
             this.DescriptorBox.TabIndex = 25;
-            this.DescriptorBox.ValueMember = "Descriptor_content";
+            this.DescriptorBox.ValueMember = "ID";
             // 
-            // descriptorsBindingSource1
+            // descriptorsBindingSource
             // 
-            this.descriptorsBindingSource1.DataMember = "Descriptors";
-            this.descriptorsBindingSource1.DataSource = this.dEDatabaseDataSet;
+            this.descriptorsBindingSource.DataMember = "Descriptors";
+            this.descriptorsBindingSource.DataSource = this.dEDatabaseDataSet;
+            // 
+            // dEDatabaseDataSet
+            // 
+            this.dEDatabaseDataSet.DataSetName = "DEDatabaseDataSet";
+            this.dEDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // RelationTypeBox
             // 
@@ -297,7 +286,7 @@
             this.RelationTypeBox.Name = "RelationTypeBox";
             this.RelationTypeBox.Size = new System.Drawing.Size(151, 24);
             this.RelationTypeBox.TabIndex = 24;
-            this.RelationTypeBox.ValueMember = "Type_name";
+            this.RelationTypeBox.ValueMember = "ID";
             this.RelationTypeBox.SelectedIndexChanged += new System.EventHandler(this.RelationTypeBox_SelectedIndexChanged);
             // 
             // relationtypesBindingSource
@@ -323,24 +312,6 @@
             this.DescriptorLabel.TabIndex = 22;
             this.DescriptorLabel.Text = "Связанный\r\nдескриптор";
             // 
-            // usersBindingSource
-            // 
-            this.usersBindingSource.DataMember = "Users";
-            this.usersBindingSource.DataSource = this.dEDatabaseDataSet;
-            // 
-            // usersTableAdapter
-            // 
-            this.usersTableAdapter.ClearBeforeFill = true;
-            // 
-            // descriptorsBindingSource
-            // 
-            this.descriptorsBindingSource.DataMember = "Descriptors";
-            this.descriptorsBindingSource.DataSource = this.dEDatabaseDataSet;
-            // 
-            // descriptorsTableAdapter
-            // 
-            this.descriptorsTableAdapter.ClearBeforeFill = true;
-            // 
             // AddButton
             // 
             this.AddButton.Location = new System.Drawing.Point(342, 118);
@@ -359,6 +330,25 @@
             this.QueryButton.TabIndex = 11;
             this.QueryButton.Text = "Выполнить запрос";
             this.QueryButton.UseVisualStyleBackColor = true;
+            this.QueryButton.Click += new System.EventHandler(this.QueryButton_Click);
+            // 
+            // descriptorsBindingSource1
+            // 
+            this.descriptorsBindingSource1.DataMember = "Descriptors";
+            this.descriptorsBindingSource1.DataSource = this.dEDatabaseDataSet;
+            // 
+            // usersBindingSource
+            // 
+            this.usersBindingSource.DataMember = "Users";
+            this.usersBindingSource.DataSource = this.dEDatabaseDataSet;
+            // 
+            // usersTableAdapter
+            // 
+            this.usersTableAdapter.ClearBeforeFill = true;
+            // 
+            // descriptorsTableAdapter
+            // 
+            this.descriptorsTableAdapter.ClearBeforeFill = true;
             // 
             // relation_typesTableAdapter
             // 
@@ -369,32 +359,40 @@
             this.usersBindingSource1.DataMember = "Users";
             this.usersBindingSource1.DataSource = this.dEDatabaseDataSet;
             // 
+            // answersPanel
+            // 
+            this.answersPanel.AutoScroll = true;
+            this.answersPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.answersPanel.Location = new System.Drawing.Point(22, 315);
+            this.answersPanel.Name = "answersPanel";
+            this.answersPanel.Size = new System.Drawing.Size(812, 120);
+            this.answersPanel.TabIndex = 12;
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 447);
+            this.Controls.Add(this.answersPanel);
             this.Controls.Add(this.QueryButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.QueryGrid);
-            this.Controls.Add(this.dataGridView1);
             this.Name = "SearchForm";
             this.Text = "Поиск";
             this.Load += new System.EventHandler(this.SearchForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ascriptortypesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dEDatabaseDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QueryGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.relationtypesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dEDatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.relationtypesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ascriptortypesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,7 +401,6 @@
         #endregion
         private DEDatabaseDataSet dEDatabaseDataSet;
         private System.Windows.Forms.BindingSource ascriptortypesBindingSource;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView QueryGrid;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -436,5 +433,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn endColumn;
         private System.Windows.Forms.CheckBox allTimeBox;
+        private System.Windows.Forms.FlowLayoutPanel answersPanel;
     }
 }
