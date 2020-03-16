@@ -18,8 +18,10 @@ namespace DefinitionExtraction
         public MainForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
             db = new DB();
             ShowTermins();
+
         }
         
 
@@ -175,6 +177,7 @@ namespace DefinitionExtraction
             df.id = CheckedItem.definitionId;
             df.Definition = d;
             df.Show();
+            answersPanel.Controls.Clear();
             
         }
 
@@ -199,6 +202,23 @@ namespace DefinitionExtraction
                 }
             }
             ShowTermins();
+        }
+
+        private void deleteDefinitionButton_Click(object sender, EventArgs e)
+        {
+            DeleteDefinitionState state = db.DeleteDefinition(CheckedItem.definitionId);
+            if (state == DeleteDefinitionState.Success)
+                MessageBox.Show("Определение удалено");
+            else if (state == DeleteDefinitionState.DeletedWithDescriptor)
+                MessageBox.Show("Определение и соответсвующий термин удалены");
+            else
+                MessageBox.Show("Ошибка подключения к базе данных");
+        }
+
+        private void показатьОтчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.ReportForm rf = new Forms.ReportForm();
+            rf.Show();
         }
     }
 }

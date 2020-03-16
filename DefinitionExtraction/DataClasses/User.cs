@@ -13,7 +13,7 @@ namespace DefinitionExtraction
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string PassHash { get; private set; }
+        public string PassHash { get; set; }
         public int ID { get;  set; }
         private static string salt = "gneog$73n#dj";
 
@@ -38,6 +38,10 @@ namespace DefinitionExtraction
             Registered = true;
         }
 
+        public bool RightPass(string pass)
+        {
+            return this.PassHash == GetHash(pass, salt);
+        }
         static string GetHash(string password, string salt) //Получение хэш-значения
         {
             MD5 md5 = new MD5CryptoServiceProvider(); //Экземпляр объекта MD5

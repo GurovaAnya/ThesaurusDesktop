@@ -38,6 +38,7 @@
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,13 +72,14 @@
             // 
             this.passwordBox.Location = new System.Drawing.Point(125, 140);
             this.passwordBox.Name = "passwordBox";
+            this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(168, 22);
             this.passwordBox.TabIndex = 3;
             this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
             // 
             // signInButton
             // 
-            this.signInButton.Location = new System.Drawing.Point(132, 185);
+            this.signInButton.Location = new System.Drawing.Point(132, 216);
             this.signInButton.Name = "signInButton";
             this.signInButton.Size = new System.Drawing.Size(75, 23);
             this.signInButton.TabIndex = 4;
@@ -88,7 +90,7 @@
             // LogInLabel
             // 
             this.LogInLabel.AutoSize = true;
-            this.LogInLabel.Location = new System.Drawing.Point(123, 224);
+            this.LogInLabel.Location = new System.Drawing.Point(123, 255);
             this.LogInLabel.Name = "LogInLabel";
             this.LogInLabel.Size = new System.Drawing.Size(92, 17);
             this.LogInLabel.TabIndex = 6;
@@ -130,11 +132,22 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Авторизация";
             // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(38, 176);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(0, 17);
+            this.errorLabel.TabIndex = 9;
+            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SignInForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 253);
+            this.ClientSize = new System.Drawing.Size(342, 284);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LogInLabel);
             this.Controls.Add(this.signInButton);
@@ -165,5 +178,6 @@
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label errorLabel;
     }
 }

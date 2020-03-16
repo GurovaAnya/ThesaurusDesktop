@@ -16,6 +16,7 @@ namespace DefinitionExtraction
         public RegistrationForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
@@ -23,13 +24,21 @@ namespace DefinitionExtraction
             DB db = new DB();
             User user = new User(firstNameBox.Text, lastNameBox.Text, emailBox.Text, pass1Box.Text);
             if (ProcessTextBoxes())
-                if(db.AddUser(user))
+            {
+                ReturnState rs = db.AddUser(user);
+                if (rs == ReturnState.Success)
                 {
                     CurrentSession.CurrentUser = user;
                     this.Close();
                 }
+                else if(rs == ReturnState.UniqueConstraintError)
+                {
+                    emailErrorLabel.Text = "Пользователь с таким email уже существует";
+                    emailErrorLabel.Visible = true;
+                }
                 else
-                    MessageBox.Show("Произошла ошибка подключения к базе данных. Повторите попытку.");
+                    MessageBox.Show("Произошла ошибка подключения к базе данных. Повторите попытку."); 
+            }
         }
 
         private bool ProcessTextBoxes()
@@ -44,5 +53,32 @@ namespace DefinitionExtraction
                 return validText;
         }
 
+        private void emailBox_Leave(object sender, EventArgs e)
+        {
+            emailErrorLabel.Visible = !Regex.IsMatch(emailBox.Text, @"\S+@\S+\.\S+");
+            emailErrorLabel.Text = "Неверный формат email";
+        }
+
+        private void pass2Box_Leave(object sender, EventArgs e)
+        {
+            passErrorLabel.Visible = pass1Box.Text != pass2Box.Text;
+        }
+
+        private void firstNameBox_Leave(object sender, EventArgs e)
+        {
+            firstNameErrorLabel.Visible = firstNameBox.Text.Length == 0;
+        }
+
+        private void lastNameBox_Leave(object sender, EventArgs e)
+        {
+            lastNameErrorLabel.Visible = lastNameBox.Text.Length == 0;
+
+        }
+
+        private void pass1Box_Leave(object sender, EventArgs e)
+        {
+            firstPassErrorLabel.Visible = pass1Box.Text.Length == 0;
+
+        }
     }
 }

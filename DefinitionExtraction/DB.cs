@@ -9,6 +9,8 @@ using System.Configuration;
 
 namespace DefinitionExtraction
 {
+    public enum ReturnState {Success, UniqueConstraintError, DataError };
+    public enum DeleteDefinitionState { Success, DeletedWithDescriptor, DataError};
     class DB:IDisposable
     {
         static string con = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -25,13 +27,17 @@ namespace DefinitionExtraction
             using (SqlCommand cmd = sqlConnection.CreateCommand())
             {
                 if (like == "")
-                    cmd.CommandText = 
-                        "SELECT d.Descriptor_content + ' (' + d.Relator + ')' as 'Дескриптор', d.id " +
+                    cmd.CommandText =
+                        "SELECT case when (LEN(d.Relator)<>0) then d.Descriptor_content + ' ('+d.Relator + ')' " +
+                        "else d.Descriptor_content " +
+                        "end as 'Дескриптор', d.id " +
                         "FROM dbo.Descriptors d " +
                         "order by Descriptor_content";
 
-                else cmd.CommandText = 
-                        "SELECT d.Descriptor_content + ' (' + d.Relator + ')' as 'Дескриптор', d.id " +
+                else cmd.CommandText =
+                        "SELECT case when (LEN(d.Relator)<>0) then d.Descriptor_content + ' ('+d.Relator + ')' " +
+                        "else d.Descriptor_content " +
+                        "end as 'Дескриптор', d.id " +
                         "FROM dbo.Descriptors d " +
                         "WHERE d.Descriptor_content like '' + @like + '%' " +
                         "order by Descriptor_content";
@@ -47,7 +53,7 @@ namespace DefinitionExtraction
         }
 
 
-        public bool AddDescriptor(string descriptor, int stL, int stC, int eL, int eC,
+        public ReturnState AddDescriptor(string descriptor, int stL, int stC, int eL, int eC,
             string description, int stLD, int stCD, int eLD, int eCD, string relator = "")
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
@@ -91,9 +97,9 @@ namespace DefinitionExtraction
 
                     transaction.Commit();
                     
-                    return true;
+                    return ReturnState.Success;
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     //// Attempt to roll back the transaction.
                     try
@@ -103,7 +109,9 @@ namespace DefinitionExtraction
                     catch (Exception ex2)
                     {
                     }
-                    return false;
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                        return ReturnState.UniqueConstraintError;
+                    else return ReturnState.DataError;
                 }
                 finally
                 {
@@ -112,7 +120,7 @@ namespace DefinitionExtraction
             }
         }
 
-        public bool AddDescriptor(string descriptor, int stL, int stC, int eL, int eC,
+        public ReturnState AddDescriptor(string descriptor, int stL, int stC, int eL, int eC,
            string description, int stLD, int stCD, int eLD, int eCD, string [] ascriptors, string relator = "")
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
@@ -166,9 +174,9 @@ namespace DefinitionExtraction
                     transaction.Commit();
 
 
-                    return true;
+                    return ReturnState.Success;
                 }
-                  catch (Exception ex)
+                  catch (SqlException ex)
                 {
                     //// Attempt to roll back the transaction.
                     try
@@ -178,7 +186,9 @@ namespace DefinitionExtraction
                     catch (Exception ex2)
                     {
                     }
-                    return false;
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                        return ReturnState.UniqueConstraintError;
+                    else return ReturnState.DataError;
                 }
                 finally
                 {
@@ -187,10 +197,6 @@ namespace DefinitionExtraction
             }
         }
 
-        //public bool AddAscriptor(int descriptor_id, string ascriptor)
-        //{
-            
-        //}
 
         /// <summary>
         /// Удаление термина и всех его определений
@@ -209,6 +215,7 @@ namespace DefinitionExtraction
                 // to Command object for a pending local transaction
                 command.Connection = sqlConnection;
                 command.Transaction = transaction;
+
 
                 try
                 {
@@ -231,7 +238,6 @@ namespace DefinitionExtraction
                     command.ExecuteNonQuery();
 
 
-                    // Attempt to commit the transaction.
                     transaction.Commit();
                     return true;
                 }
@@ -254,7 +260,63 @@ namespace DefinitionExtraction
             }
         }
 
-        public bool ChangeDescription(int id, string descriptor, int stL, int stC, int eL, int eC,
+        public DeleteDefinitionState DeleteDefinition(int definitionID)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            {
+                DeleteDefinitionState state = DeleteDefinitionState.Success;
+                sqlConnection.Open();
+                SqlCommand command = sqlConnection.CreateCommand();
+                SqlTransaction transaction = sqlConnection.BeginTransaction("DeleteDescriptor");
+
+                // Must assign both transaction object and connection
+                // to Command object for a pending local transaction
+                command.Connection = sqlConnection;
+                command.Transaction = transaction;
+
+
+                try
+                {
+                    command.Parameters.AddWithValue("ID", definitionID);
+
+                    command.CommandText = "select count(descriptor_id) from definitions where descriptor_id = (select descriptor_id from definitions where ID = @ID)";
+                    double count = (double)command.ExecuteScalar();
+                    if (count == 0) 
+                    {
+                        command.CommandText =
+                        "Delete from Descriptors where id = (select descriptor_id from definitions where ID = @ID); " +
+                        "Delete from Ascriptors where descriptor_id = (select descriptor_id from definitions where ID = @ID); ";
+                        command.ExecuteNonQuery();
+                        state = DeleteDefinitionState.DeletedWithDescriptor;
+                    }
+                    
+                    command.CommandText =
+                        "Delete from DefinitionLinks where definition_id=@definition_id; " +
+                        "Delete from Definitions where ID = @definition_id ";
+                    command.ExecuteNonQuery();
+                    transaction.Commit();
+                    return state;
+                }
+                catch (Exception ex)
+                {
+                    //// Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                    }
+                    return DeleteDefinitionState.DataError;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
+
+        public ReturnState ChangeDescription(int id, string descriptor, int stL, int stC, int eL, int eC,
             string description, int stLD, int stCD, int eLD, int eCD, string relator = "")
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
@@ -285,7 +347,8 @@ namespace DefinitionExtraction
 
                     command.CommandText =
                         "Update Definitions set definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD" +
-                        " where descriptor_id= @id";
+                        //" where descriptor_id= @id";
+                        " where id= @id";
                     command.Parameters.AddWithValue("@description", description);
                     command.Parameters.AddWithValue("@stLD", stLD);
                     command.Parameters.AddWithValue("@stCD", stCD);
@@ -296,9 +359,9 @@ namespace DefinitionExtraction
                     command.ExecuteNonQuery();
 
                     transaction.Commit();
-                    return true;
+                    return ReturnState.Success;
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     //// Attempt to roll back the transaction.
                     try
@@ -308,7 +371,9 @@ namespace DefinitionExtraction
                     catch (Exception ex2)
                     {
                     }
-                    return false;
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                        return ReturnState.UniqueConstraintError;
+                    else return ReturnState.DataError;
                 }
                 finally
                 {
@@ -337,8 +402,8 @@ namespace DefinitionExtraction
                     {
                         if (reader.Read())
                         {
-                            termin.Descriptor = reader["descriptor_content"].ToString();
-                            termin.Relator = reader["relator"].ToString();
+                            termin.Descriptor = reader["descriptor_content"].ToString().Trim();
+                            termin.Relator = reader["relator"].ToString().Trim();
                             termin.StartLine = (int)reader["start_line"];
                             termin.StartChar = (int)reader["start_char"];
                             termin.EndLine = (int)reader["end_line"];
@@ -354,7 +419,7 @@ namespace DefinitionExtraction
                     {
                         Definition def = new Definition();
                         def.ID = (int)reader["id"];
-                        def.Content = reader["definition_content"].ToString();
+                        def.Content = reader["definition_content"].ToString().Trim();
                         def.StartLine = (int)reader["start_line"];
                         def.StartChar = (int)reader["start_char"];
                         def.EndLine = (int)reader["end_line"];
@@ -374,7 +439,7 @@ namespace DefinitionExtraction
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public bool AddUser(User user)
+        public ReturnState AddUser(User user)
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
             {
@@ -404,9 +469,9 @@ namespace DefinitionExtraction
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
-                    return true;
+                    return ReturnState.Success;
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     //// Attempt to roll back the transaction.
                     try
@@ -416,7 +481,9 @@ namespace DefinitionExtraction
                     catch (Exception ex2)
                     {
                     }
-                    return false;
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                        return ReturnState.UniqueConstraintError;
+                    else return ReturnState.DataError;
                 }
                 finally
                 {
@@ -440,7 +507,7 @@ namespace DefinitionExtraction
                 using (SqlCommand cmd = sqlConnection.CreateCommand())
                 {
                     cmd.Parameters.AddWithValue("@email", user.Email);
-                    cmd.CommandText = "select ID, first_name, last_name from users " +
+                    cmd.CommandText = "select ID, first_name, last_name, password_hash from users " +
                         "where email=@email";
                     SqlDataReader reader = cmd.ExecuteReader();
                     {
@@ -449,6 +516,7 @@ namespace DefinitionExtraction
                             user.ID = (int)reader["ID"];
                             user.FirstName = reader["first_name"].ToString().Trim();
                             user.LastName = reader["last_name"].ToString().Trim();
+                            user.PassHash = reader["password_hash"].ToString().Trim();
                             returned = true;
                         }
                     }
@@ -459,7 +527,7 @@ namespace DefinitionExtraction
             return returned;
         }
 
-        public bool AddRelation(int des1ID, int des2ID, int relationID)
+        public ReturnState AddRelation(int des1ID, int des2ID, int relationID)
         {
             using (SqlConnection sqlConnection = new SqlConnection(con))
             {
@@ -483,9 +551,9 @@ namespace DefinitionExtraction
                     command.ExecuteNonQuery();
 
                     transaction.Commit();
-                    return true;
+                    return ReturnState.Success;
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     try
                     {
@@ -494,7 +562,9 @@ namespace DefinitionExtraction
                     catch (Exception ex2)
                     {
                     }
-                    return false;
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                        return ReturnState.UniqueConstraintError;
+                    else return ReturnState.DataError;
                 }
                 finally
                 {
@@ -506,6 +576,7 @@ namespace DefinitionExtraction
         public List<Termin> DescriptorComplexQuery(Query query)
         {
             string RelDescCom;
+            string TimeCom=null;
             bool noRelations=false;
             List<Termin> results = new List<Termin>();
             List<int> IDs = new List<int>();
@@ -515,7 +586,12 @@ namespace DefinitionExtraction
                 sqlConnection.Open();
                 using (SqlCommand cmd = sqlConnection.CreateCommand())
                 {
-
+                    if (query.TimeAdded)
+                    {
+                        TimeCom = "insert_date between @fromDate and @toDate ";
+                        cmd.Parameters.AddWithValue("@fromDate",  query.FromDate.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@toDate", query.ToDate.ToString("yyyy-MM-dd"));
+                    }
                     if (query.RelatedDescriptorID == -1 && query.RelationID==-1)
                     {
                         RelDescCom = string.Empty;
@@ -525,31 +601,44 @@ namespace DefinitionExtraction
                     else if (query.RelatedDescriptorID== -1)
                     {
                         cmd.Parameters.AddWithValue("@relation_id", query.RelationID);
-                        RelDescCom = "where relation_id = @relation_id ";
+                        RelDescCom = "relation_id = @relation_id ";
                     }
                     else if (query.RelationID==-1)
                     {
                         cmd.Parameters.AddWithValue("@descriptor_id", query.RelatedDescriptorID);
-                        RelDescCom = "where descriptor1_id = @descriptor_id ";
+                        RelDescCom = "descriptor1_id = @descriptor_id ";
                     }
                     else
                     {
                         cmd.Parameters.AddWithValue("@relation_id", query.RelationID);
                         cmd.Parameters.AddWithValue("@descriptor_id", query.RelatedDescriptorID);
-                        RelDescCom = "where descriptor1_id = @descriptor_id and relation_type_id = @relation_id ";
+                        RelDescCom = "descriptor1_id = @descriptor_id and relation_type_id = @relation_id ";
                     }
 
                     if (query.UserAdded)
                     {
                         cmd.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
-                        if(noRelations)
+                        if (noRelations)
                             cmd.CommandText = "select descriptor_id as descriptor2_id from definitions where user_id = @user_id ";
                         else
-                            cmd.CommandText = "select descriptor2_id from relations r inner join definitons s on d.descriptor_id = r.descriptor2_id " 
-                                + RelDescCom + "and where user_id=@user_id";
+                            cmd.CommandText = "select descriptor2_id from relations r inner join definitions d on d.descriptor_id = r.descriptor2_id where "
+                                + RelDescCom + "and user_id=@user_id ";
+                        if (TimeCom != null)
+                            cmd.CommandText += "and " + TimeCom;
                     }
-                    else 
-                        cmd.CommandText = "select descriptor2_id from relations "+ RelDescCom;
+                    else
+                    {
+                        cmd.CommandText = "select descriptor2_id from relations ";
+                        if (TimeCom != null)
+                        {
+                            cmd.CommandText += "inner join definitions on descriptor_id=descriptor2_id where " + TimeCom+" and "+RelDescCom;
+                        }
+                        else
+                            cmd.CommandText+= RelDescCom;
+                        
+                           
+                    }
+                    
                     SqlDataReader reader = cmd.ExecuteReader();
                     {
                         if (reader.Read())
@@ -563,6 +652,24 @@ namespace DefinitionExtraction
                 results.Add(GetTermin(id));
             return results;
         }
+
+        public DataSet GetUserStatistics()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            using (SqlCommand cmd = sqlConnection.CreateCommand())
+            {
+                cmd.CommandText =
+                    "select dbo.UserName(user_id) as Имя, dbo.UserEmail(user_id) as Почта, count(user_id) as 'Добавлено определений' from Users u " +
+                    "inner join Definitions d on u.id = d.User_ID group by user_id order by 'Добавлено определений' desc; ";
+
+
+                SqlDataAdapter adap = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                adap.Fill(ds);
+                return ds;
+            }
+        }
+
 
         public void Dispose()
         {

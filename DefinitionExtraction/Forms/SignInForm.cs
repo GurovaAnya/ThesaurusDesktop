@@ -15,6 +15,8 @@ namespace DefinitionExtraction
         public SignInForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
+
         }
 
         private void logInLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -39,10 +41,17 @@ namespace DefinitionExtraction
             User user = new User(loginBox.Text, passwordBox.Text);
             if (db.LogIn(user))
             {
-                CurrentSession.CurrentUser = user;
-                this.Close();
-                this.Hide();
+                if (user.RightPass(passwordBox.Text))
+                {
+                    CurrentSession.CurrentUser = user;
+                    this.Close();
+                    this.Hide();
+                }
+                else
+                    errorLabel.Text = "Неверный логин или пароль";
             }
+            else 
+                errorLabel.Text= "Неверный логин или пароль";
         }
     }
 }

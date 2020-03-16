@@ -17,6 +17,7 @@ namespace DefinitionExtraction
         public SearchForm()
         {
             InitializeComponent();
+            ObjectBox.SelectedIndex = 0;
         }
 
         private void SearchForm_Load(object sender, EventArgs e)

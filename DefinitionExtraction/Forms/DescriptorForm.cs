@@ -28,34 +28,42 @@ namespace DefinitionExtraction
                 if (Changing)
                     Change();
                 else Add();
-                   
+            this.Close();
+
         }
 
         private void Change()
         {
             using (DB db = new DB())
             {
-                if (db.ChangeDescription(id, descriptorBox.Text,
+                ReturnState rs = db.ChangeDescription(id, descriptorBox.Text,
                         Int32.Parse(startLineD.Text), Int32.Parse(StartCharD.Text), Int32.Parse(EndLineD.Text), Int32.Parse(EndCharD.Text),
                         DefinitionBox.Text,
                         Int32.Parse(StartLineBox.Text), Int32.Parse(StartCharBox.Text), Int32.Parse(EndLineBox.Text), Int32.Parse(EndCharBox.Text),
-                        RelatorBox.Text))
+                        RelatorBox.Text);
+                if (rs == ReturnState.Success)
                     MessageBox.Show("Определение изменено!");
+                else if (rs == ReturnState.UniqueConstraintError)
+                    MessageBox.Show("Такое определение уже существует в базе данных");
                 else
                     MessageBox.Show("Ошибка подключения к базе данных");
             }
+
         }
 
         private void Add()
         {
             using (DB db = new DB())
             {
-                if (db.AddDescriptor(descriptorBox.Text,
+                ReturnState rs = db.AddDescriptor(descriptorBox.Text,
                         Int32.Parse(startLineD.Text), Int32.Parse(StartCharD.Text), Int32.Parse(EndLineD.Text), Int32.Parse(EndCharD.Text),
                         DefinitionBox.Text,
                         Int32.Parse(StartLineBox.Text), Int32.Parse(StartCharBox.Text), Int32.Parse(EndLineBox.Text), Int32.Parse(EndCharBox.Text),
-                        RelatorBox.Text))
-                    MessageBox.Show("Определение добавлено!");
+                        RelatorBox.Text);
+                if (rs == ReturnState.Success)
+                    MessageBox.Show("Определение изменено!");
+                else if (rs == ReturnState.UniqueConstraintError)
+                    MessageBox.Show("Такое определение уже существует в базе данных");
                 else
                     MessageBox.Show("Ошибка подключения к базе данных");
             }

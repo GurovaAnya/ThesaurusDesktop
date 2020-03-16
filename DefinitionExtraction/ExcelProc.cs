@@ -57,11 +57,12 @@ namespace DefinitionExtraction
                         (double)info[i, 10], (double)info[i, 11], (double)info[i, 12], (double)info[i, 13],};
                     using (DB db = new DB())
                     {
-                        if (db.AddDescriptor(info[i, 1].ToString(),
+                        ReturnState rs = db.AddDescriptor(info[i, 1].ToString(),
                         (int)ints[0], (int)ints[1], (int)ints[2], (int)ints[3],
                         info[i, 9].ToString(),
                         (int)ints[4], (int)ints[5], (int)ints[6], (int)ints[7], ascriptors,
-                        info[i, 2].ToString()))
+                        info[i, 2].ToString());
+                        if (rs==ReturnState.Success)
                             count++;
                     }
                 }
@@ -71,6 +72,11 @@ namespace DefinitionExtraction
 
             }
             return count;
+        }
+
+        public static void LoadReport()
+        {
+
         }
     }
 }

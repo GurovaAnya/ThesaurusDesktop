@@ -30,6 +30,7 @@ namespace DefinitionExtraction
             }
         }
         public bool UserAdded;
+        public bool TimeAdded;
         public DateTime FromDate;
         public DateTime ToDate
         {
@@ -42,6 +43,7 @@ namespace DefinitionExtraction
                 if (value >= FromDate)
                     toDate = value;
                 else toDate = FromDate;
+                TimeAdded = true;
             }
         }
 

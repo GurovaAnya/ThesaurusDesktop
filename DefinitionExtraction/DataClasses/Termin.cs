@@ -8,6 +8,7 @@ namespace DefinitionExtraction
 {
     public class Termin
     {
+        public int ID { get; set; }
         public string Descriptor { get;  set; }
         public string Relator { get; set; }
         public List<Definition> Definitions { get; set; } = new List<Definition>();
