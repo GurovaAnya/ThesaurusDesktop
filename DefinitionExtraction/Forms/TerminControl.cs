@@ -147,7 +147,9 @@ namespace DefinitionExtraction
                     Relations = termin.relations
                 };
 
-
+                TerminViewForm tvf = new TerminViewForm();
+                tvf.AddControl(tc);
+                tvf.Show();
             }
             
         }

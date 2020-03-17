@@ -97,8 +97,10 @@
             // 
             // relationsBox
             // 
+            this.relationsBox.Cursor = System.Windows.Forms.Cursors.No;
             this.relationsBox.Location = new System.Drawing.Point(15, 152);
             this.relationsBox.Name = "relationsBox";
+            this.relationsBox.ReadOnly = true;
             this.relationsBox.Size = new System.Drawing.Size(671, 96);
             this.relationsBox.TabIndex = 6;
             this.relationsBox.Text = "";
