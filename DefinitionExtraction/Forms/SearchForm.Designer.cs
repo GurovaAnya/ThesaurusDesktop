@@ -188,7 +188,7 @@
             this.allTimeBox.TabIndex = 35;
             this.allTimeBox.Text = "За все время";
             this.allTimeBox.UseVisualStyleBackColor = true;
-            this.allTimeBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.allTimeBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // mineCheckBox
             // 
@@ -212,7 +212,7 @@
             this.ObjectBox.Name = "ObjectBox";
             this.ObjectBox.Size = new System.Drawing.Size(151, 24);
             this.ObjectBox.TabIndex = 33;
-            this.ObjectBox.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            this.ObjectBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox4_SelectedIndexChanged);
             // 
             // label6
             // 

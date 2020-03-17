@@ -29,7 +29,7 @@ namespace DefinitionExtraction
             QueryGrid.Columns["mineColumn"].Visible = CurrentSession.CurrentUser != null;
         }
 
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             if (cb.SelectedItem.ToString() == "Дескриптор")
@@ -39,7 +39,6 @@ namespace DefinitionExtraction
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
             if (CheckFields())
             {
                 QueryGrid.Rows.Add();
@@ -73,7 +72,7 @@ namespace DefinitionExtraction
             return true;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             StartDateBox.Enabled = !allTimeBox.Checked;
             EndDateBox.Enabled = !allTimeBox.Checked;
@@ -107,13 +106,15 @@ namespace DefinitionExtraction
             {
                 foreach (Definition def in termin.Definitions)
                 {
-                    TerminControl tc = new TerminControl();
-                    tc.Descriptor = termin.Descriptor;
-                    tc.Definition = def.Content;
-                    tc.Ascriptors = termin.Ascriptors;
-                    tc.definitionId = def.ID;
-                    tc.DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar };
-                    tc.DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar };
+                    TerminControl tc = new TerminControl
+                    {
+                        Descriptor = termin.Descriptor,
+                        Definition = def.Content,
+                        Ascriptors = termin.Ascriptors,
+                        definitionId = def.ID,
+                        DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar },
+                        DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar }
+                    };
                     answersPanel.Controls.Add(tc);
                 }
             }

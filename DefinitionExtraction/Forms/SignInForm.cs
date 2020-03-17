@@ -19,23 +19,23 @@ namespace DefinitionExtraction
 
         }
 
-        private void logInLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LogInLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             RegistrationForm rf = new RegistrationForm();
             rf.Show();
         }
 
-        private void loginBox_TextChanged(object sender, EventArgs e)
+        private void LoginBox_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void passwordBox_TextChanged(object sender, EventArgs e)
+        private void PasswordBox_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void signInButton_Click(object sender, EventArgs e)
+        private void SignInButton_Click(object sender, EventArgs e)
         {
             DB db = new DB();
             User user = new User(loginBox.Text, passwordBox.Text);

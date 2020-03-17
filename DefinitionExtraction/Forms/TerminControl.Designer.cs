@@ -34,6 +34,7 @@
             this.definitionBox = new System.Windows.Forms.Label();
             this.definitionLocationBox = new System.Windows.Forms.Label();
             this.descriptorLocationBox = new System.Windows.Forms.Label();
+            this.relationsBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // descriptorBox
@@ -78,7 +79,7 @@
             // 
             this.definitionLocationBox.AutoSize = true;
             this.definitionLocationBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.definitionLocationBox.Location = new System.Drawing.Point(12, 140);
+            this.definitionLocationBox.Location = new System.Drawing.Point(12, 133);
             this.definitionLocationBox.Name = "definitionLocationBox";
             this.definitionLocationBox.Size = new System.Drawing.Size(44, 15);
             this.definitionLocationBox.TabIndex = 4;
@@ -94,11 +95,20 @@
             this.descriptorLocationBox.TabIndex = 5;
             this.descriptorLocationBox.Text = "0 0 0 0";
             // 
+            // relationsBox
+            // 
+            this.relationsBox.Location = new System.Drawing.Point(15, 152);
+            this.relationsBox.Name = "relationsBox";
+            this.relationsBox.Size = new System.Drawing.Size(671, 96);
+            this.relationsBox.TabIndex = 6;
+            this.relationsBox.Text = "";
+            // 
             // TerminControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.relationsBox);
             this.Controls.Add(this.descriptorLocationBox);
             this.Controls.Add(this.definitionLocationBox);
             this.Controls.Add(this.definitionBox);
@@ -106,7 +116,7 @@
             this.Controls.Add(this.relatorBox);
             this.Controls.Add(this.descriptorBox);
             this.Name = "TerminControl";
-            this.Size = new System.Drawing.Size(520, 162);
+            this.Size = new System.Drawing.Size(719, 272);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,5 +130,6 @@
         private System.Windows.Forms.Label definitionBox;
         private System.Windows.Forms.Label definitionLocationBox;
         private System.Windows.Forms.Label descriptorLocationBox;
+        private System.Windows.Forms.RichTextBox relationsBox;
     }
 }

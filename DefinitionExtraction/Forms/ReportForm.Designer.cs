@@ -83,7 +83,7 @@
             this.reportBox.Name = "reportBox";
             this.reportBox.Size = new System.Drawing.Size(150, 24);
             this.reportBox.TabIndex = 2;
-            this.reportBox.SelectedIndexChanged += new System.EventHandler(this.reportBox_SelectedIndexChanged);
+            this.reportBox.SelectedIndexChanged += new System.EventHandler(this.ReportBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -102,7 +102,7 @@
             this.loadReport.TabIndex = 4;
             this.loadReport.Text = "Выгрузить отчет";
             this.loadReport.UseVisualStyleBackColor = true;
-            this.loadReport.Click += new System.EventHandler(this.loadReport_Click);
+            this.loadReport.Click += new System.EventHandler(this.LoadReport_Click);
             // 
             // ReportForm
             // 

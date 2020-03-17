@@ -66,16 +66,16 @@
             this.loginBox.Name = "loginBox";
             this.loginBox.Size = new System.Drawing.Size(168, 22);
             this.loginBox.TabIndex = 2;
-            this.loginBox.TextChanged += new System.EventHandler(this.loginBox_TextChanged);
+            this.loginBox.TextChanged += new System.EventHandler(this.LoginBox_TextChanged);
             // 
             // passwordBox
             // 
             this.passwordBox.Location = new System.Drawing.Point(125, 140);
             this.passwordBox.Name = "passwordBox";
-            this.passwordBox.PasswordChar = '*';
+            this.passwordBox.PasswordChar = '●';
             this.passwordBox.Size = new System.Drawing.Size(168, 22);
             this.passwordBox.TabIndex = 3;
-            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
+            this.passwordBox.TextChanged += new System.EventHandler(this.PasswordBox_TextChanged);
             // 
             // signInButton
             // 
@@ -85,7 +85,7 @@
             this.signInButton.TabIndex = 4;
             this.signInButton.Text = "Вход";
             this.signInButton.UseVisualStyleBackColor = true;
-            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
+            this.signInButton.Click += new System.EventHandler(this.SignInButton_Click);
             // 
             // LogInLabel
             // 
@@ -96,7 +96,7 @@
             this.LogInLabel.TabIndex = 6;
             this.LogInLabel.TabStop = true;
             this.LogInLabel.Text = "Регистрация";
-            this.LogInLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logInLabel_LinkClicked);
+            this.LogInLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LogInLabel_LinkClicked);
             // 
             // menuStrip1
             // 

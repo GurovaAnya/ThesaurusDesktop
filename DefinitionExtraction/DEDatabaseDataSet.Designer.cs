@@ -551,6 +551,8 @@ namespace DefinitionExtraction {
             
             private global::System.Data.DataColumn columnDescriptor_ID;
             
+            private global::System.Data.DataColumn columnAscriptor_content1;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public AscriptorsDataTable() {
@@ -610,6 +612,14 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Ascriptor_content1Column {
+                get {
+                    return this.columnAscriptor_content1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -645,12 +655,13 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public AscriptorsRow AddAscriptorsRow(int Ascriptor_content, DescriptorsRow parentDescriptorsRowByFK_Ascriptors_Descriptors) {
+            public AscriptorsRow AddAscriptorsRow(int Ascriptor_content, DescriptorsRow parentDescriptorsRowByFK_Ascriptors_Descriptors, string Ascriptor_content1) {
                 AscriptorsRow rowAscriptorsRow = ((AscriptorsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Ascriptor_content,
-                        null};
+                        null,
+                        Ascriptor_content1};
                 if ((parentDescriptorsRowByFK_Ascriptors_Descriptors != null)) {
                     columnValuesArray[2] = parentDescriptorsRowByFK_Ascriptors_Descriptors[6];
                 }
@@ -686,6 +697,7 @@ namespace DefinitionExtraction {
                 this.columnID = base.Columns["ID"];
                 this.columnAscriptor_content = base.Columns["Ascriptor_content"];
                 this.columnDescriptor_ID = base.Columns["Descriptor_ID"];
+                this.columnAscriptor_content1 = base.Columns["Ascriptor_content1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -697,6 +709,8 @@ namespace DefinitionExtraction {
                 base.Columns.Add(this.columnAscriptor_content);
                 this.columnDescriptor_ID = new global::System.Data.DataColumn("Descriptor_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescriptor_ID);
+                this.columnAscriptor_content1 = new global::System.Data.DataColumn("Ascriptor_content1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAscriptor_content1);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -707,6 +721,9 @@ namespace DefinitionExtraction {
                 this.columnID.Unique = true;
                 this.columnAscriptor_content.AllowDBNull = false;
                 this.columnDescriptor_ID.AllowDBNull = false;
+                this.columnAscriptor_content1.AllowDBNull = false;
+                this.columnAscriptor_content1.Caption = "Ascriptor_content";
+                this.columnAscriptor_content1.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2871,6 +2888,17 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Ascriptor_content1 {
+                get {
+                    return ((string)(this[this.tableAscriptors.Ascriptor_content1Column]));
+                }
+                set {
+                    this[this.tableAscriptors.Ascriptor_content1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DescriptorsRow DescriptorsRow {
                 get {
                     return ((DescriptorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Ascriptors_Descriptors"])));
@@ -3869,8 +3897,8 @@ namespace DefinitionExtraction.DEDatabaseDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Ascriptors";
             tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("Ascriptor_content", "Ascriptor_content");
             tableMapping.ColumnMappings.Add("Descriptor_ID", "Descriptor_ID");
+            tableMapping.ColumnMappings.Add("Ascriptor_content", "Ascriptor_content1");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -3879,7 +3907,7 @@ namespace DefinitionExtraction.DEDatabaseDataSetTableAdapters {
                 "D))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -3887,17 +3915,17 @@ namespace DefinitionExtraction.DEDatabaseDataSetTableAdapters {
                 "criptor_content, @Descriptor_ID);\r\nSELECT ID, Ascriptor_content, Descriptor_ID F" +
                 "ROM Ascriptors WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Ascriptors] SET [Ascriptor_content] = @Ascriptor_content, [Descriptor_ID] = @Descriptor_ID WHERE (([ID] = @Original_ID) AND ([Ascriptor_content] = @Original_Ascriptor_content) AND ([Descriptor_ID] = @Original_Descriptor_ID));
 SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -3976,9 +4004,14 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_Ascriptor_content, int Original_Descriptor_ID) {
+        public virtual int Delete(int Original_ID, string Original_Ascriptor_content, int Original_Descriptor_ID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Ascriptor_content));
+            if ((Original_Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Original_Ascriptor_content");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_Ascriptor_content));
+            }
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Descriptor_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4000,8 +4033,13 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Ascriptor_content, int Descriptor_ID) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Ascriptor_content));
+        public virtual int Insert(string Ascriptor_content, int Descriptor_ID) {
+            if ((Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Ascriptor_content");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Ascriptor_content));
+            }
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Descriptor_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4023,11 +4061,21 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Ascriptor_content, int Descriptor_ID, int Original_ID, int Original_Ascriptor_content, int Original_Descriptor_ID, int ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Ascriptor_content));
+        public virtual int Update(string Ascriptor_content, int Descriptor_ID, int Original_ID, string Original_Ascriptor_content, int Original_Descriptor_ID, int ID) {
+            if ((Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Ascriptor_content");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Ascriptor_content));
+            }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Descriptor_ID));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Ascriptor_content));
+            if ((Original_Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Original_Ascriptor_content");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_Ascriptor_content));
+            }
             this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Descriptor_ID));
             this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
@@ -4050,7 +4098,7 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Ascriptor_content, int Descriptor_ID, int Original_ID, int Original_Ascriptor_content, int Original_Descriptor_ID) {
+        public virtual int Update(string Ascriptor_content, int Descriptor_ID, int Original_ID, string Original_Ascriptor_content, int Original_Descriptor_ID) {
             return this.Update(Ascriptor_content, Descriptor_ID, Original_ID, Original_Ascriptor_content, Original_Descriptor_ID, Original_ID);
         }
     }
@@ -4927,7 +4975,7 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char, Descr
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Relator", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -4939,7 +4987,7 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Descriptors] SET [Descriptor_content] = @Descriptor_content, [Start_line] = @Start_line, [Start_char] = @Start_char, [End_line] = @End_line, [End_char] = @End_char, [Relator] = @Relator WHERE (([Descriptor_content] = @Original_Descriptor_content) AND ([Start_line] = @Original_Start_line) AND ([Start_char] = @Original_Start_char) AND ([End_line] = @Original_End_line) AND ([End_char] = @Original_End_char) AND ((@IsNull_Relator = 1 AND [Relator] IS NULL) OR ([Relator] = @Original_Relator)) AND ([ID] = @Original_ID));
@@ -4950,14 +4998,14 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Relator", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -4972,7 +5020,7 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, I" +
@@ -4980,9 +5028,14 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, I" +
-                "D FROM dbo.Descriptors";
+            this._commandCollection[1].CommandText = "SELECT Descriptor_content, End_char, End_line, ID, Relator, Start_char, Start_lin" +
+                "e FROM Descriptors";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT Descriptor_content, End_char, End_line, ID, Relator, Start_char, Start_lin" +
+                "e FROM Descriptors";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5015,6 +5068,19 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy(DEDatabaseDataSet.DescriptorsDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy1(DEDatabaseDataSet.DescriptorsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }

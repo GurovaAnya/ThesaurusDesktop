@@ -28,7 +28,7 @@ namespace DefinitionExtraction
 
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             using (DB db = new DB())
             {

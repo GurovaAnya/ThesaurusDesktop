@@ -35,7 +35,7 @@ namespace DefinitionExtraction
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             SearchForm sf = new SearchForm();
             sf.Show();
@@ -45,6 +45,7 @@ namespace DefinitionExtraction
         {
             DescriptorForm df = new DescriptorForm();
             df.Show();
+            ShowTermins(searchBox.Text);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -58,7 +59,7 @@ namespace DefinitionExtraction
             terminView.Columns["id"].Visible = false;
         }
 
-        private void searchBox_TextChanged(object sender, EventArgs e)
+        private void SearchBox_TextChanged(object sender, EventArgs e)
         {
             ShowTermins(searchBox.Text);
         }
@@ -73,7 +74,7 @@ namespace DefinitionExtraction
             ShowTermins(searchBox.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             ShowTermins();
         }
@@ -84,13 +85,17 @@ namespace DefinitionExtraction
             Termin termin = db.GetTermin((int)terminView.Rows[terminView.SelectedCells[0].RowIndex].Cells["id"].Value);
             foreach(Definition def in termin.Definitions)
             {
-                TerminControl tc = new TerminControl();
-                tc.Descriptor = termin.Descriptor;
-                tc.Definition = def.Content;
-                tc.Ascriptors = termin.Ascriptors;
-                tc.definitionId = def.ID;
-                tc.DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar };
-                tc.DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar };
+                TerminControl tc = new TerminControl
+                {
+                    Relator = termin.Relator,
+                    Descriptor = termin.Descriptor,
+                    Definition = def.Content,
+                    Ascriptors = termin.Ascriptors,
+                    definitionId = def.ID,
+                    DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar },
+                    DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar },
+                    Relations = termin.relations
+                };
                 tc.Click += new EventHandler(ItemClick);
                 answersPanel.Controls.Add(tc);
             }
@@ -139,14 +144,15 @@ namespace DefinitionExtraction
             AddButton.Enabled = reg;
             ChangeButton.Enabled = reg;
             addRelationButton.Enabled = reg;
+            AddSynonymButton.Enabled = reg;
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ВыходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void addRelationButton_Click(object sender, EventArgs e)
+        private void AddRelationButton_Click(object sender, EventArgs e)
         {
             AddRelationForm arf = new AddRelationForm();
             arf.Show();
@@ -155,6 +161,53 @@ namespace DefinitionExtraction
         private void ChangeButton_Click(object sender, EventArgs e)
         {
             //answersPanel.Controls;
+            
+            
+        }
+
+        private void ОткрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "excel files (*.xls;*.xlsx)|*.xls;*.xlsx|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    MessageBox.Show("Добавлено определений: "+ ExcelProc.ExcelP(filePath));
+                }
+            }
+            ShowTermins();
+        }
+
+        private void DeleteDefinitionButton_Click(object sender, EventArgs e)
+        {
+            DeleteDefinitionState state = db.DeleteDefinition(CheckedItem.definitionId);
+            if (state == DeleteDefinitionState.Success)
+                MessageBox.Show("Определение удалено");
+            else if (state == DeleteDefinitionState.DeletedWithDescriptor)
+                MessageBox.Show("Определение и соответсвующий термин удалены");
+            else
+                MessageBox.Show("Ошибка подключения к базе данных");
+            ShowTermins(searchBox.Text);
+        }
+
+        private void ПоказатьОтчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.ReportForm rf = new Forms.ReportForm();
+            rf.Show();
+        }
+
+        private void ChangeButton_Click_1(object sender, EventArgs e)
+        {
             DescriptorForm df = new DescriptorForm();
             Termin t = new Termin()
             {
@@ -178,47 +231,13 @@ namespace DefinitionExtraction
             df.Definition = d;
             df.Show();
             answersPanel.Controls.Clear();
-            
+            ShowTermins(searchBox.Text);
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddSynonymButton_Click(object sender, EventArgs e)
         {
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
-
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "excel files (*.xls;*.xlsx)|*.xls;*.xlsx|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    //Get the path of specified file
-                    filePath = openFileDialog.FileName;
-
-                    MessageBox.Show("Добавлено определений: "+ ExcelProc.ExcelP(filePath));
-                }
-            }
-            ShowTermins();
-        }
-
-        private void deleteDefinitionButton_Click(object sender, EventArgs e)
-        {
-            DeleteDefinitionState state = db.DeleteDefinition(CheckedItem.definitionId);
-            if (state == DeleteDefinitionState.Success)
-                MessageBox.Show("Определение удалено");
-            else if (state == DeleteDefinitionState.DeletedWithDescriptor)
-                MessageBox.Show("Определение и соответсвующий термин удалены");
-            else
-                MessageBox.Show("Ошибка подключения к базе данных");
-        }
-
-        private void показатьОтчетToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Forms.ReportForm rf = new Forms.ReportForm();
-            rf.Show();
+            AscriptorForm af = new AscriptorForm();
+            af.Show();
         }
     }
 }

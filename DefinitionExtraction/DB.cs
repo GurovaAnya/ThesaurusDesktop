@@ -281,7 +281,7 @@ namespace DefinitionExtraction
 
                     command.CommandText = "select count(descriptor_id) from definitions where descriptor_id = (select descriptor_id from definitions where ID = @ID)";
                     double count = (double)command.ExecuteScalar();
-                    if (count == 0) 
+                    if (count == 1) 
                     {
                         command.CommandText =
                         "Delete from Descriptors where id = (select descriptor_id from definitions where ID = @ID); " +
@@ -333,9 +333,6 @@ namespace DefinitionExtraction
 
                 try
                 {
-                    //command.CommandText =
-                    //    "Update Descriptors set descriptor_content = @descriptor, start_line=@stL, start_char=@stC,end_line=@eL, end_char=@eC, relator=@relator" +
-                    //    "where id = @id";
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@descriptor", descriptor);
                     command.Parameters.AddWithValue("@stL", stL);
@@ -343,12 +340,6 @@ namespace DefinitionExtraction
                     command.Parameters.AddWithValue("@eL", eL);
                     command.Parameters.AddWithValue("@eC", eC);
                     command.Parameters.AddWithValue("@relator", relator);
-                    //command.ExecuteNonQuery();
-
-                    command.CommandText =
-                        "Update Definitions set definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD" +
-                        //" where descriptor_id= @id";
-                        " where id= @id";
                     command.Parameters.AddWithValue("@description", description);
                     command.Parameters.AddWithValue("@stLD", stLD);
                     command.Parameters.AddWithValue("@stCD", stCD);
@@ -356,7 +347,39 @@ namespace DefinitionExtraction
                     command.Parameters.AddWithValue("@eCD", eCD);
                     command.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
 
-                    command.ExecuteNonQuery();
+                    command.CommandText = "select count(descriptor_id) from definitions where descriptor_id = (select descriptor_id from definitions where ID = @ID)";
+                    int count = (int)command.ExecuteScalar();
+
+                    
+
+                    if (count > 1)
+                    {
+                        command.CommandText =
+                            "Insert into Descriptors VALUES (@descriptor, @stL, @stC, @eL, @eC, @relator); " +
+                        "select scope_identity()";
+                        double dID = (double)command.ExecuteScalar();
+                        command.Parameters.AddWithValue("@dID", dID);
+                        
+                        command.CommandText =
+                            "Update Definitions set descriptor_id = @dID definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD " +
+                            " where id= @id";
+
+                        command.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        command.CommandText =
+                            "Update Descriptors set descriptor_content = @descriptor, start_line=@stL, start_char=@stC,end_line=@eL, end_char=@eC, relator=@relator " +
+                            "where id = (select descriptor_id from definitions where id=@id)";
+
+                        command.ExecuteNonQuery();
+
+                        command.CommandText =
+                            "Update Definitions set definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD " +
+                            " where id= @id";
+
+                        command.ExecuteNonQuery();
+                    }
 
                     transaction.Commit();
                     return ReturnState.Success;
@@ -417,16 +440,46 @@ namespace DefinitionExtraction
 
                     while (reader.Read())
                     {
-                        Definition def = new Definition();
-                        def.ID = (int)reader["id"];
-                        def.Content = reader["definition_content"].ToString().Trim();
-                        def.StartLine = (int)reader["start_line"];
-                        def.StartChar = (int)reader["start_char"];
-                        def.EndLine = (int)reader["end_line"];
-                        def.EndChar = (int)reader["end_char"];
+                        Definition def = new Definition
+                        {
+                            ID = (int)reader["id"],
+                            Content = reader["definition_content"].ToString().Trim(),
+                            StartLine = (int)reader["start_line"],
+                            StartChar = (int)reader["start_char"],
+                            EndLine = (int)reader["end_line"],
+                            EndChar = (int)reader["end_char"]
+                        };
                         termin.Definitions.Add(def);
                     }
                     reader.Close();
+
+                    cmd.CommandText = "select ascriptor_content from ascriptors " +
+                        "where descriptor_id = @descriptor_id";
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        termin.Ascriptors.Add(reader["ascriptor_content"].ToString());
+                    }
+                    reader.Close();
+
+                    cmd.CommandText = "select t.ID, type_name, Descriptor2_ID, Descriptor_content " +
+                        "from Relation_types t, Relations r, Descriptors d " +
+                        "where r.Relation_type_ID = t.ID and Descriptor1_ID = @descriptor_id " +
+                        "and d.id = Descriptor2_ID; ";
+                    reader = cmd.ExecuteReader();
+
+                    RelationsList rl = new RelationsList();
+                    while (reader.Read())
+                    {
+                        Termin related = new Termin();
+                        related.ID = (int)reader["descriptor2_id"];
+                        related.Descriptor = reader["descriptor_content"].ToString();
+                        rl.AddRelation(new Relation((int)reader["ID"], reader["type_name"].ToString()), related);
+                    }
+                    termin.relations = rl;
+                    reader.Close();
+
                     sqlConnection.Close();
                 }
             }            
@@ -667,6 +720,55 @@ namespace DefinitionExtraction
                 DataSet ds = new DataSet();
                 adap.Fill(ds);
                 return ds;
+            }
+        }
+
+        public ReturnState AddAscriptor(int descriptorID, string ascriptor)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(con))
+            {
+                sqlConnection.Open();
+
+                SqlCommand command = sqlConnection.CreateCommand();
+                SqlTransaction transaction;
+
+                transaction = sqlConnection.BeginTransaction("AddAscriptor");
+
+                command.Connection = sqlConnection;
+                command.Transaction = transaction;
+
+                try
+                {
+                    command.CommandText =
+                        "Insert into Ascriptors (ascriptor_content, descriptor_id) VALUES (@ascriptor, @id)";
+                    command.Parameters.AddWithValue("@ascriptor", ascriptor);
+                    command.Parameters.AddWithValue("@id", descriptorID);
+                    command.ExecuteNonQuery();
+
+                    
+                    transaction.Commit();
+
+
+                    return ReturnState.Success;
+                }
+                catch (SqlException ex)
+                {
+                    //// Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                    }
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                        return ReturnState.UniqueConstraintError;
+                    else return ReturnState.DataError;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
             }
         }
 

@@ -36,13 +36,13 @@ namespace DefinitionExtraction.Forms
             }
         }
 
-        private void reportBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ReportBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (reportBox.SelectedItem.ToString() == "Пользователи")
                 UserStatistics();
         }
 
-        private void loadReport_Click(object sender, EventArgs e)
+        private void LoadReport_Click(object sender, EventArgs e)
         {
             if (statsDataGrid.Rows.Count > 0)
             {

@@ -11,7 +11,6 @@ namespace DefinitionExtraction
         public static EventHandler<EventArgs> OnUserChanged;
         
         delegate void UserChanged();
-        static event UserChanged Notify;
         private static User currentUser;
         internal static User CurrentUser 
         {

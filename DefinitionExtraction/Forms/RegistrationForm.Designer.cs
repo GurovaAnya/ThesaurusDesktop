@@ -73,7 +73,7 @@
             this.pass2Box.Name = "pass2Box";
             this.pass2Box.Size = new System.Drawing.Size(278, 22);
             this.pass2Box.TabIndex = 12;
-            this.pass2Box.Leave += new System.EventHandler(this.pass2Box_Leave);
+            this.pass2Box.Leave += new System.EventHandler(this.Pass2Box_Leave);
             // 
             // pass1Box
             // 
@@ -81,7 +81,7 @@
             this.pass1Box.Name = "pass1Box";
             this.pass1Box.Size = new System.Drawing.Size(278, 22);
             this.pass1Box.TabIndex = 11;
-            this.pass1Box.Leave += new System.EventHandler(this.pass1Box_Leave);
+            this.pass1Box.Leave += new System.EventHandler(this.Pass1Box_Leave);
             // 
             // label2
             // 
@@ -107,7 +107,7 @@
             this.firstNameBox.Name = "firstNameBox";
             this.firstNameBox.Size = new System.Drawing.Size(278, 22);
             this.firstNameBox.TabIndex = 18;
-            this.firstNameBox.Leave += new System.EventHandler(this.firstNameBox_Leave);
+            this.firstNameBox.Leave += new System.EventHandler(this.FirstNameBox_Leave);
             // 
             // label4
             // 
@@ -124,7 +124,7 @@
             this.lastNameBox.Name = "lastNameBox";
             this.lastNameBox.Size = new System.Drawing.Size(278, 22);
             this.lastNameBox.TabIndex = 20;
-            this.lastNameBox.Leave += new System.EventHandler(this.lastNameBox_Leave);
+            this.lastNameBox.Leave += new System.EventHandler(this.LastNameBox_Leave);
             // 
             // label5
             // 
@@ -141,7 +141,7 @@
             this.emailBox.Name = "emailBox";
             this.emailBox.Size = new System.Drawing.Size(278, 22);
             this.emailBox.TabIndex = 22;
-            this.emailBox.Leave += new System.EventHandler(this.emailBox_Leave);
+            this.emailBox.Leave += new System.EventHandler(this.EmailBox_Leave);
             // 
             // label6
             // 

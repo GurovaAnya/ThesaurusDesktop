@@ -15,7 +15,7 @@ namespace DefinitionExtraction
         public string Email { get; set; }
         public string PassHash { get; set; }
         public int ID { get;  set; }
-        private static string salt = "gneog$73n#dj";
+        private static readonly string salt = "gneog$73n#dj";
 
         public User()
         {

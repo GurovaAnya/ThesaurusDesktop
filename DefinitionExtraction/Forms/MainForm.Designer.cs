@@ -40,11 +40,13 @@
             this.показатьТолькоАскрипторыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьВсеТерминыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьОтчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.AddSynonymButton = new System.Windows.Forms.Button();
             this.addRelationButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.InfoButton = new System.Windows.Forms.Button();
@@ -53,16 +55,15 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.deleteDefinitionButton = new System.Windows.Forms.Button();
             this.answersPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.ChangeButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.NameBox = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.NameBox = new System.Windows.Forms.Label();
             this.descriptorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.descriptorsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.definitionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.deleteDefinitionButton = new System.Windows.Forms.Button();
-            this.показатьОтчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.terminView)).BeginInit();
@@ -95,7 +96,7 @@
             this.открытьToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 26);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // открытьToolStripMenuItem
@@ -103,19 +104,19 @@
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.ОткрытьToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.ВыходToolStripMenuItem_Click);
             // 
             // правкаToolStripMenuItem
             // 
             this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 26);
+            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.правкаToolStripMenuItem.Text = "Правка";
             // 
             // видToolStripMenuItem
@@ -125,7 +126,7 @@
             this.показатьТолькоАскрипторыToolStripMenuItem,
             this.показатьВсеТерминыToolStripMenuItem});
             this.видToolStripMenuItem.Name = "видToolStripMenuItem";
-            this.видToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.видToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.видToolStripMenuItem.Text = "Вид";
             // 
             // показатьТолькоДескрипторыToolStripMenuItem
@@ -154,12 +155,19 @@
             this.отчетToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
             this.отчетToolStripMenuItem.Text = "Отчет";
             // 
+            // показатьОтчетToolStripMenuItem
+            // 
+            this.показатьОтчетToolStripMenuItem.Name = "показатьОтчетToolStripMenuItem";
+            this.показатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.показатьОтчетToolStripMenuItem.Text = "Показать отчет";
+            this.показатьОтчетToolStripMenuItem.Click += new System.EventHandler(this.ПоказатьОтчетToolStripMenuItem_Click);
+            // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.оПрограммеToolStripMenuItem});
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
             // оПрограммеToolStripMenuItem
@@ -199,6 +207,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.AddSynonymButton);
             this.panel1.Controls.Add(this.addRelationButton);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.InfoButton);
@@ -214,6 +223,19 @@
             this.panel1.Size = new System.Drawing.Size(935, 544);
             this.panel1.TabIndex = 13;
             // 
+            // AddSynonymButton
+            // 
+            this.AddSynonymButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddSynonymButton.Enabled = false;
+            this.AddSynonymButton.Location = new System.Drawing.Point(829, 179);
+            this.AddSynonymButton.Name = "AddSynonymButton";
+            this.AddSynonymButton.Size = new System.Drawing.Size(98, 43);
+            this.AddSynonymButton.TabIndex = 21;
+            this.AddSynonymButton.Text = "Добавить\r\nсиноним\r\n\r\n";
+            this.AddSynonymButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AddSynonymButton.UseVisualStyleBackColor = true;
+            this.AddSynonymButton.Click += new System.EventHandler(this.AddSynonymButton_Click);
+            // 
             // addRelationButton
             // 
             this.addRelationButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -225,7 +247,7 @@
             this.addRelationButton.Text = "Добавить\r\nотношение\r\n";
             this.addRelationButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.addRelationButton.UseVisualStyleBackColor = true;
-            this.addRelationButton.Click += new System.EventHandler(this.addRelationButton_Click);
+            this.addRelationButton.Click += new System.EventHandler(this.AddRelationButton_Click);
             // 
             // button1
             // 
@@ -235,7 +257,7 @@
             this.button1.TabIndex = 17;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // InfoButton
             // 
@@ -258,7 +280,7 @@
             this.button4.TabIndex = 12;
             this.button4.Text = "Расширенный поиск";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // terminView
             // 
@@ -292,7 +314,7 @@
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(293, 22);
             this.searchBox.TabIndex = 0;
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
+            this.searchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
             // 
             // panel3
             // 
@@ -306,6 +328,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(935, 200);
             this.panel3.TabIndex = 20;
+            // 
+            // deleteDefinitionButton
+            // 
+            this.deleteDefinitionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteDefinitionButton.Enabled = false;
+            this.deleteDefinitionButton.Location = new System.Drawing.Point(828, 35);
+            this.deleteDefinitionButton.Name = "deleteDefinitionButton";
+            this.deleteDefinitionButton.Size = new System.Drawing.Size(103, 44);
+            this.deleteDefinitionButton.TabIndex = 23;
+            this.deleteDefinitionButton.Text = "Удалить\r\nопределение\r\n";
+            this.deleteDefinitionButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.deleteDefinitionButton.UseVisualStyleBackColor = true;
+            this.deleteDefinitionButton.Click += new System.EventHandler(this.DeleteDefinitionButton_Click);
             // 
             // answersPanel
             // 
@@ -327,6 +362,7 @@
             this.ChangeButton.Text = "Изменить...";
             this.ChangeButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ChangeButton.UseVisualStyleBackColor = true;
+            this.ChangeButton.Click += new System.EventHandler(this.ChangeButton_Click_1);
             // 
             // panel2
             // 
@@ -338,17 +374,6 @@
             this.panel2.Size = new System.Drawing.Size(165, 40);
             this.panel2.TabIndex = 14;
             this.panel2.Click += new System.EventHandler(this.NameBox_Click);
-            // 
-            // NameBox
-            // 
-            this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameBox.AutoSize = true;
-            this.NameBox.Location = new System.Drawing.Point(15, 9);
-            this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(48, 17);
-            this.NameBox.TabIndex = 12;
-            this.NameBox.Text = "Войти";
-            this.NameBox.Click += new System.EventHandler(this.NameBox_Click);
             // 
             // pictureBox1
             // 
@@ -363,6 +388,17 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.NameBox_Click);
             // 
+            // NameBox
+            // 
+            this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameBox.AutoSize = true;
+            this.NameBox.Location = new System.Drawing.Point(15, 9);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(48, 17);
+            this.NameBox.TabIndex = 12;
+            this.NameBox.Text = "Войти";
+            this.NameBox.Click += new System.EventHandler(this.NameBox_Click);
+            // 
             // descriptorsBindingSource
             // 
             this.descriptorsBindingSource.DataMember = "Descriptors";
@@ -374,26 +410,6 @@
             // definitionsBindingSource
             // 
             this.definitionsBindingSource.DataMember = "Definitions";
-            // 
-            // deleteDefinitionButton
-            // 
-            this.deleteDefinitionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteDefinitionButton.Enabled = false;
-            this.deleteDefinitionButton.Location = new System.Drawing.Point(828, 35);
-            this.deleteDefinitionButton.Name = "deleteDefinitionButton";
-            this.deleteDefinitionButton.Size = new System.Drawing.Size(103, 44);
-            this.deleteDefinitionButton.TabIndex = 23;
-            this.deleteDefinitionButton.Text = "Удалить\r\nопределение\r\n";
-            this.deleteDefinitionButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.deleteDefinitionButton.UseVisualStyleBackColor = true;
-            this.deleteDefinitionButton.Click += new System.EventHandler(this.deleteDefinitionButton_Click);
-            // 
-            // показатьОтчетToolStripMenuItem
-            // 
-            this.показатьОтчетToolStripMenuItem.Name = "показатьОтчетToolStripMenuItem";
-            this.показатьОтчетToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.показатьОтчетToolStripMenuItem.Text = "Показать отчет";
-            this.показатьОтчетToolStripMenuItem.Click += new System.EventHandler(this.показатьОтчетToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -462,6 +478,7 @@
         private System.Windows.Forms.Button ChangeButton;
         private System.Windows.Forms.Button deleteDefinitionButton;
         private System.Windows.Forms.ToolStripMenuItem показатьОтчетToolStripMenuItem;
+        private System.Windows.Forms.Button AddSynonymButton;
     }
 }
 

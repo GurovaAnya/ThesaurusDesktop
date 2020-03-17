@@ -128,6 +128,8 @@
       <DependentUpon>SignInForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DataClasses\Termin.cs" />
+    <Compile Include="Relation.cs" />
+    <Compile Include="RelationsList.cs" />
     <EmbeddedResource Include="Forms\AddRelationForm.resx">
       <DependentUpon>AddRelationForm.cs</DependentUpon>
     </EmbeddedResource>

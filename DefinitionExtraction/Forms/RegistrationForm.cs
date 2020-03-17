@@ -53,29 +53,29 @@ namespace DefinitionExtraction
                 return validText;
         }
 
-        private void emailBox_Leave(object sender, EventArgs e)
+        private void EmailBox_Leave(object sender, EventArgs e)
         {
             emailErrorLabel.Visible = !Regex.IsMatch(emailBox.Text, @"\S+@\S+\.\S+");
             emailErrorLabel.Text = "Неверный формат email";
         }
 
-        private void pass2Box_Leave(object sender, EventArgs e)
+        private void Pass2Box_Leave(object sender, EventArgs e)
         {
             passErrorLabel.Visible = pass1Box.Text != pass2Box.Text;
         }
 
-        private void firstNameBox_Leave(object sender, EventArgs e)
+        private void FirstNameBox_Leave(object sender, EventArgs e)
         {
             firstNameErrorLabel.Visible = firstNameBox.Text.Length == 0;
         }
 
-        private void lastNameBox_Leave(object sender, EventArgs e)
+        private void LastNameBox_Leave(object sender, EventArgs e)
         {
             lastNameErrorLabel.Visible = lastNameBox.Text.Length == 0;
 
         }
 
-        private void pass1Box_Leave(object sender, EventArgs e)
+        private void Pass1Box_Leave(object sender, EventArgs e)
         {
             firstPassErrorLabel.Visible = pass1Box.Text.Length == 0;
 
