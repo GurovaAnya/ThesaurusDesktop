@@ -13,13 +13,13 @@ namespace DefinitionExtraction
 {
     public partial class MainForm : Form
     {
-        DB db;
+        DBQueries db;
 
         public MainForm()
         {
             InitializeComponent();
             this.CenterToScreen();
-            db = new DB();
+            db = new DBQueries();
             ShowTermins();
 
         }
@@ -28,11 +28,6 @@ namespace DefinitionExtraction
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dEDatabaseDataSet.Definitions". При необходимости она может быть перемещена или удалена.
-           // this.definitionsTableAdapter.Fill(this.dEDatabaseDataSet.Definitions);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dEDatabaseDataSet.Descriptors". При необходимости она может быть перемещена или удалена.
-            //this.descriptorsTableAdapter.Fill(this.dEDatabaseDataSet.Descriptors);
-
         }
 
         private void Button4_Click(object sender, EventArgs e)
@@ -94,7 +89,8 @@ namespace DefinitionExtraction
                     definitionId = def.ID,
                     DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar },
                     DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar },
-                    Relations = termin.relations
+                    Relations = termin.Relations, 
+                    Links = def.Links
                 };
                 tc.Click += new EventHandler(ItemClick);
                 answersPanel.Controls.Add(tc);
@@ -182,7 +178,7 @@ namespace DefinitionExtraction
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
 
-                    MessageBox.Show("Добавлено определений: "+ ExcelProc.ExcelP(filePath));
+                    MessageBox.Show("Добавлено определений: "+ MSImport.ExcelRead(filePath));
                 }
             }
             ShowTermins();
@@ -238,6 +234,22 @@ namespace DefinitionExtraction
         {
             AscriptorForm af = new AscriptorForm();
             af.Show();
+        }
+
+        private void ОПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 ab = new AboutBox1();
+            ab.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ChoseDecsriptorForm cdf = new ChoseDecsriptorForm()
+            {
+                DefinitionId = CheckedItem.definitionId,
+                StartChar = CheckedItem.SelectedIndex
+            };
+            cdf.Show();
         }
     }
 }

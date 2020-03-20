@@ -6,32 +6,16 @@ using System.Threading.Tasks;
 
 namespace DefinitionExtraction
 {
-    public enum ObjectType {Дескриптор=0, Аскриптор=1, Определение=2, Связь=3};
     class Query
     {
-        private int relationType;
         private DateTime toDate;
 
-        public ObjectType ObjectType;
+        public int RelatedDescriptorID { get; set; } = -1;
+        public int RelationID { get; set; } = -1;
 
-        public int RelatedDescriptorID { get; set; } = -1;   
-        public int RelationID
-        {
-            get
-            {
-                return relationType; 
-            }
-            set
-            {
-                if (ObjectType == ObjectType.Дескриптор)
-                    relationType = value;
-                else
-                    relationType = -1;
-            }
-        }
-        public bool UserAdded;
-        public bool TimeAdded;
-        public DateTime FromDate;
+        public bool UserAdded { get; set; }
+        public bool TimeAdded { get; set; }
+        public DateTime FromDate { get; set; }
         public DateTime ToDate
         {
             get
@@ -47,9 +31,8 @@ namespace DefinitionExtraction
             }
         }
 
-        public Query(ObjectType ot, int relatedDescriptor, int RelationType, bool userAdded, DateTime fromDate, DateTime toDate)
+        public Query(int relatedDescriptor, int relationType, bool userAdded, DateTime fromDate, DateTime toDate)
         {
-            this.ObjectType = ot;
             this.RelatedDescriptorID = relatedDescriptor;
             this.RelationID = relationType;
             this.UserAdded = userAdded;
@@ -57,9 +40,8 @@ namespace DefinitionExtraction
             this.ToDate = toDate;
         }
 
-        public Query(ObjectType ot, int relatedDescriptor, int relationType, bool userAdded)
+        public Query(int relatedDescriptor, int relationType, bool userAdded)
         {
-            this.ObjectType = ot;
             this.RelatedDescriptorID = relatedDescriptor;
             this.RelationID = relationType;
             this.UserAdded = userAdded;

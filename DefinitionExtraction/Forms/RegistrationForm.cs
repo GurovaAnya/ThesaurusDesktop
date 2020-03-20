@@ -21,7 +21,7 @@ namespace DefinitionExtraction
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
+            DBQueries db = new DBQueries();
             User user = new User(firstNameBox.Text, lastNameBox.Text, emailBox.Text, pass1Box.Text);
             if (ProcessTextBoxes())
             {

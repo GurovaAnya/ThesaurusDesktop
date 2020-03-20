@@ -87,7 +87,7 @@
             this.signInButton.TabIndex = 27;
             this.signInButton.Text = "Добавить ";
             this.signInButton.UseVisualStyleBackColor = true;
-            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
+            this.signInButton.Click += new System.EventHandler(this.SignInButton_Click);
             // 
             // descriptorsBindingSource
             // 

@@ -17,7 +17,7 @@ namespace DefinitionExtraction
         public int EndLine { get; set; }
         public int EndChar { get; set; }
         public List<string> Ascriptors { get; set; } = new List<string>();
-        public RelationsList relations { get; set; }
+        public RelationsList Relations { get; set; }
         
 
         public Termin()

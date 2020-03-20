@@ -30,16 +30,14 @@ namespace DefinitionExtraction
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            using (DB db = new DB())
-            {
-                ReturnState rs = db.AddRelation((int)descriptor1Box.SelectedValue, (int)descriptor2Box.SelectedValue, (int)relationBox.SelectedValue);
-                if (rs == ReturnState.Success)
-                    MessageBox.Show("Связь добавлена");
-                else if (rs == ReturnState.UniqueConstraintError)
-                    MessageBox.Show("Связь между данными терминами уже существует");
-                else
-                    MessageBox.Show("Ошибка подключения к базе данных");
-            }
+            DBQueries db = new DBQueries();
+            ReturnState rs = db.AddRelation((int)descriptor1Box.SelectedValue, (int)descriptor2Box.SelectedValue, (int)relationBox.SelectedValue);
+            if (rs == ReturnState.Success)
+                MessageBox.Show("Связь добавлена");
+            else if (rs == ReturnState.UniqueConstraintError)
+                MessageBox.Show("Связь между данными терминами уже существует");
+            else
+                MessageBox.Show("Ошибка подключения к базе данных");
         }
     }
 }

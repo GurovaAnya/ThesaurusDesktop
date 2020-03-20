@@ -37,18 +37,13 @@ namespace DefinitionExtraction
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
+            DBQueries db = new DBQueries();
             User user = new User(loginBox.Text, passwordBox.Text);
-            if (db.LogIn(user))
+            if (db.LogIn(user)&& user.RightPass(passwordBox.Text))
             {
-                if (user.RightPass(passwordBox.Text))
-                {
                     CurrentSession.CurrentUser = user;
                     this.Close();
                     this.Hide();
-                }
-                else
-                    errorLabel.Text = "Неверный логин или пароль";
             }
             else 
                 errorLabel.Text= "Неверный логин или пароль";

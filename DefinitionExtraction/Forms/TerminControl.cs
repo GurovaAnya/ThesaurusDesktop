@@ -20,6 +20,17 @@ namespace DefinitionExtraction
         private int [] descriptorLocation;
         private int [] definitionLocation;
         private RelationsList relations;
+        private List<Link> links;
+
+        public string SelectedText
+        {
+            get { return definitionBox.SelectedText; }
+        }
+
+        public int SelectedIndex
+        {
+            get { return definitionBox.SelectionStart; }
+        }
         
 
         public string Descriptor
@@ -78,7 +89,7 @@ namespace DefinitionExtraction
             get { return descriptorLocation; }
             set
             {
-                if (value.Length != 4) throw new Exception("descriptorLocation should consist of 4 elements");
+                if (value.Length != 4) throw new Exception("DescriptorLocation should consist of 4 elements");
                 descriptorLocation = value;
                 descriptorLocationBox.Text = value[0] + " " + value[1] + " " + value[2] + " " + value[3];
             }
@@ -89,7 +100,7 @@ namespace DefinitionExtraction
             get { return definitionLocation; }
             set
             {
-                if (value.Length != 4) throw new Exception("definitionLocation should consist of 4 elements");
+                if (value.Length != 4) throw new Exception("DefinitionLocation should consist of 4 elements");
                 definitionLocation = value;
                 definitionLocationBox.Text = value[0] + " " + value[1] + " " + value[2] + " " + value[3];
             }
@@ -100,16 +111,17 @@ namespace DefinitionExtraction
             get { return relations; }
             set
             {
+                relations = value;
                 if (value.Count > 0)
                 {
                     foreach (KeyValuePair<Relation, List<Termin>> relation in value)
                     {
-                        relationsBox.Text += relation.Key.Name + ":";
+                        relationsBox.Text += relation.Key.Name + ": ";
                         foreach (Termin val in relation.Value)
                         {
                             LinkLabel link = new LinkLabel();
                             link.Text = val.Descriptor;
-                            link.LinkClicked += new LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+                            link.LinkClicked += new LinkLabelLinkClickedEventHandler(this.Link_LinkClicked);
                             LinkLabel.Link data = new LinkLabel.Link();
                             data.LinkData = val.ID;
                             link.Links.Add(data);
@@ -119,20 +131,66 @@ namespace DefinitionExtraction
                             this.relationsBox.Controls.Add(link);
                             this.relationsBox.AppendText(link.Text);
                             this.relationsBox.SelectionStart = this.relationsBox.TextLength;
-                            relationsBox.Text += " ,";
+                            relationsBox.Text += ", ";
                         }
                     }
                 }
             }
         }
 
-        private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        public List<Link> Links
+        {
+            get { return links; }
+            set
+            {
+                links = value;
+                if (value.Count > 0)
+                {
+                    value.Sort((x, y) => x.StartChar.CompareTo(y.StartChar));
+                    foreach (Link link in value)
+                    {
+                        LinkLabel linkLabel = new LinkLabel();
+                        //linkLabel.Text = link.Descriptor;
+                        linkLabel.Text = definitionBox.Text.Substring(link.StartChar, definitionBox.Text.IndexOf(' ', link.StartChar) - link.StartChar);
+                        linkLabel.LinkClicked += new LinkLabelLinkClickedEventHandler(this.Link_LinkClicked);
+                        LinkLabel.Link data = new LinkLabel.Link();
+                        data.LinkData = link.DescriptorID;
+                        linkLabel.Links.Add(0, link.Descriptor.Length, data.LinkData);
+                        linkLabel.AutoSize = true;
+                        linkLabel.Location =
+                            this.definitionBox.GetPositionFromCharIndex(link.StartChar + 2);
+                        this.definitionBox.Controls.Add(linkLabel);
+                        string sub2 = definitionBox.Text.Substring(link.StartChar, definitionBox.Text.IndexOf(' ', link.StartChar) - link.StartChar);
+                        string sub3 = definitionBox.Text.Substring(definitionBox.Text.IndexOf(' ', link.StartChar));
+                        definitionBox.Text = definitionBox.Text.Substring(0, link.StartChar) + " " + sub2 + " " + sub3;
+                    }
+                }
+            }
+        }
+
+        //public List<Link> Links
+        //{
+        //    get { return links; }
+        //    set
+        //    {
+        //        linkLabel1.Text = definitionBox.Text;
+        //        value.Sort((x, y) => x.StartChar.CompareTo(y.StartChar));
+        //        foreach (Link link in value)
+        //        {
+        //            //linkLabel1.LinkArea = new LinkArea(link.StartChar, link.Descriptor.Length);
+        //            LinkLabel.Link data = new LinkLabel.Link();
+        //            data.LinkData = link.DescriptorID;
+        //            linkLabel1.Links.Add(link.StartChar, link.Descriptor.Length, data.LinkData);
+        //        }
+        //        linkLabel1.LinkClicked += new LinkLabelLinkClickedEventHandler(this.Link_LinkClicked);
+        //    }
+        //}
+
+        private void Link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Termin termin;
-            using (DB db = new DB())
-            {
-                termin = db.GetTermin((int)e.Link.LinkData);
-            }
+            DBQueries db = new DBQueries();
+            termin = db.GetTermin(Convert.ToInt32(e.Link.LinkData));
             foreach (Definition def in termin.Definitions)
             {
                 TerminControl tc = new TerminControl
@@ -144,7 +202,8 @@ namespace DefinitionExtraction
                     definitionId = def.ID,
                     DefinitionLocation = new int[] { def.StartLine, def.StartChar, def.EndLine, def.EndChar },
                     DescriptorLocation = new int[] { termin.StartLine, termin.StartChar, termin.EndLine, termin.EndChar },
-                    Relations = termin.relations
+                    Relations = termin.Relations,
+                    Links = def.Links
                 };
 
                 TerminViewForm tvf = new TerminViewForm();

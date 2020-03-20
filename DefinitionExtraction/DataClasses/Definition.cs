@@ -14,6 +14,7 @@ namespace DefinitionExtraction
         public int StartChar { get; set; }
         public int EndLine { get; set; }
         public int EndChar { get; set; }
+        public List<Link> Links {get;set;}
 
         public Definition()
         {

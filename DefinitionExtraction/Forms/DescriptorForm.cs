@@ -34,39 +34,35 @@ namespace DefinitionExtraction
 
         private void Change()
         {
-            using (DB db = new DB())
-            {
-                ReturnState rs = db.ChangeDescription(id, descriptorBox.Text,
-                        Int32.Parse(startLineD.Text), Int32.Parse(StartCharD.Text), Int32.Parse(EndLineD.Text), Int32.Parse(EndCharD.Text),
-                        DefinitionBox.Text,
-                        Int32.Parse(StartLineBox.Text), Int32.Parse(StartCharBox.Text), Int32.Parse(EndLineBox.Text), Int32.Parse(EndCharBox.Text),
-                        RelatorBox.Text);
-                if (rs == ReturnState.Success)
-                    MessageBox.Show("Определение изменено!");
-                else if (rs == ReturnState.UniqueConstraintError)
-                    MessageBox.Show("Такое определение уже существует в базе данных");
-                else
-                    MessageBox.Show("Ошибка подключения к базе данных");
-            }
+            DBQueries db = new DBQueries();
+            ReturnState rs = db.ChangeDescription(id, descriptorBox.Text,
+                    Int32.Parse(startLineD.Text), Int32.Parse(StartCharD.Text), Int32.Parse(EndLineD.Text), Int32.Parse(EndCharD.Text),
+                    DefinitionBox.Text,
+                    Int32.Parse(StartLineBox.Text), Int32.Parse(StartCharBox.Text), Int32.Parse(EndLineBox.Text), Int32.Parse(EndCharBox.Text),
+                    RelatorBox.Text);
+            if (rs == ReturnState.Success)
+                MessageBox.Show("Определение изменено!");
+            else if (rs == ReturnState.UniqueConstraintError)
+                MessageBox.Show("Такое определение уже существует в базе данных");
+            else
+                MessageBox.Show("Ошибка подключения к базе данных");
 
         }
 
         private void Add()
         {
-            using (DB db = new DB())
-            {
-                ReturnState rs = db.AddDescriptor(descriptorBox.Text,
-                        Int32.Parse(startLineD.Text), Int32.Parse(StartCharD.Text), Int32.Parse(EndLineD.Text), Int32.Parse(EndCharD.Text),
-                        DefinitionBox.Text,
-                        Int32.Parse(StartLineBox.Text), Int32.Parse(StartCharBox.Text), Int32.Parse(EndLineBox.Text), Int32.Parse(EndCharBox.Text),
-                        RelatorBox.Text);
-                if (rs == ReturnState.Success)
-                    MessageBox.Show("Определение изменено!");
-                else if (rs == ReturnState.UniqueConstraintError)
-                    MessageBox.Show("Такое определение уже существует в базе данных");
-                else
-                    MessageBox.Show("Ошибка подключения к базе данных");
-            }
+            DBQueries db = new DBQueries();
+            ReturnState rs = db.AddDescriptor(descriptorBox.Text,
+                    Int32.Parse(startLineD.Text), Int32.Parse(StartCharD.Text), Int32.Parse(EndLineD.Text), Int32.Parse(EndCharD.Text),
+                    DefinitionBox.Text,
+                    Int32.Parse(StartLineBox.Text), Int32.Parse(StartCharBox.Text), Int32.Parse(EndLineBox.Text), Int32.Parse(EndCharBox.Text),
+                    RelatorBox.Text);
+            if (rs == ReturnState.Success)
+                MessageBox.Show("Определение изменено!");
+            else if (rs == ReturnState.UniqueConstraintError)
+                MessageBox.Show("Такое определение уже существует в базе данных");
+            else
+                MessageBox.Show("Ошибка подключения к базе данных");
         }
 
         private bool CheckFields()

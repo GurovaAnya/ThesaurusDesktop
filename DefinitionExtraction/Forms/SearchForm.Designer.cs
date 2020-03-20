@@ -29,20 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.QueryGrid = new System.Windows.Forms.DataGridView();
-            this.objectColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.relationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mineColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.allTimeBox = new System.Windows.Forms.CheckBox();
             this.mineCheckBox = new System.Windows.Forms.CheckBox();
-            this.ObjectBox = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.EndDateBox = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.StartDateBox = new System.Windows.Forms.DateTimePicker();
@@ -55,7 +45,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.DescriptorLabel = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
-            this.QueryButton = new System.Windows.Forms.Button();
             this.descriptorsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersTableAdapter = new DefinitionExtraction.DEDatabaseDataSetTableAdapters.UsersTableAdapter();
@@ -64,7 +53,6 @@
             this.usersBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.ascriptortypesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.answersPanel = new System.Windows.Forms.FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.QueryGrid)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dEDatabaseDataSet)).BeginInit();
@@ -75,88 +63,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.ascriptortypesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // QueryGrid
-            // 
-            this.QueryGrid.AllowUserToAddRows = false;
-            this.QueryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.QueryGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.objectColumn,
-            this.descriptorColumn,
-            this.relationColumn,
-            this.mineColumn,
-            this.startColumn,
-            this.endColumn});
-            this.QueryGrid.Location = new System.Drawing.Point(22, 166);
-            this.QueryGrid.Name = "QueryGrid";
-            this.QueryGrid.ReadOnly = true;
-            this.QueryGrid.RowHeadersWidth = 51;
-            this.QueryGrid.RowTemplate.Height = 24;
-            this.QueryGrid.Size = new System.Drawing.Size(812, 98);
-            this.QueryGrid.TabIndex = 6;
-            // 
-            // objectColumn
-            // 
-            this.objectColumn.HeaderText = "Сущность";
-            this.objectColumn.MinimumWidth = 6;
-            this.objectColumn.Name = "objectColumn";
-            this.objectColumn.ReadOnly = true;
-            this.objectColumn.Width = 125;
-            // 
-            // descriptorColumn
-            // 
-            this.descriptorColumn.HeaderText = "Связанный дескриптор";
-            this.descriptorColumn.MinimumWidth = 6;
-            this.descriptorColumn.Name = "descriptorColumn";
-            this.descriptorColumn.ReadOnly = true;
-            this.descriptorColumn.Width = 125;
-            // 
-            // relationColumn
-            // 
-            this.relationColumn.HeaderText = "Вид связи";
-            this.relationColumn.MinimumWidth = 6;
-            this.relationColumn.Name = "relationColumn";
-            this.relationColumn.ReadOnly = true;
-            this.relationColumn.Width = 125;
-            // 
-            // mineColumn
-            // 
-            this.mineColumn.HeaderText = "Добавлено мной";
-            this.mineColumn.MinimumWidth = 6;
-            this.mineColumn.Name = "mineColumn";
-            this.mineColumn.ReadOnly = true;
-            this.mineColumn.Width = 125;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "С";
-            this.startColumn.MinimumWidth = 6;
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            this.startColumn.Width = 125;
-            // 
-            // endColumn
-            // 
-            this.endColumn.HeaderText = "По";
-            this.endColumn.MinimumWidth = 6;
-            this.endColumn.Name = "endColumn";
-            this.endColumn.ReadOnly = true;
-            this.endColumn.Width = 125;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 133);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 17);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Запрос";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 280);
+            this.label2.Location = new System.Drawing.Point(19, 142);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 17);
+            this.label2.Size = new System.Drawing.Size(68, 15);
             this.label2.TabIndex = 8;
             this.label2.Text = "Результат";
             // 
@@ -164,8 +76,6 @@
             // 
             this.panel1.Controls.Add(this.allTimeBox);
             this.panel1.Controls.Add(this.mineCheckBox);
-            this.panel1.Controls.Add(this.ObjectBox);
-            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.EndDateBox);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.StartDateBox);
@@ -176,7 +86,7 @@
             this.panel1.Controls.Add(this.DescriptorLabel);
             this.panel1.Location = new System.Drawing.Point(22, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(812, 100);
+            this.panel1.Size = new System.Drawing.Size(820, 100);
             this.panel1.TabIndex = 9;
             // 
             // allTimeBox
@@ -184,7 +94,7 @@
             this.allTimeBox.AutoSize = true;
             this.allTimeBox.Location = new System.Drawing.Point(609, 72);
             this.allTimeBox.Name = "allTimeBox";
-            this.allTimeBox.Size = new System.Drawing.Size(117, 21);
+            this.allTimeBox.Size = new System.Drawing.Size(107, 19);
             this.allTimeBox.TabIndex = 35;
             this.allTimeBox.Text = "За все время";
             this.allTimeBox.UseVisualStyleBackColor = true;
@@ -195,39 +105,16 @@
             this.mineCheckBox.AutoSize = true;
             this.mineCheckBox.Location = new System.Drawing.Point(293, 55);
             this.mineCheckBox.Name = "mineCheckBox";
-            this.mineCheckBox.Size = new System.Drawing.Size(141, 21);
+            this.mineCheckBox.Size = new System.Drawing.Size(127, 19);
             this.mineCheckBox.TabIndex = 34;
             this.mineCheckBox.Text = "Добавлено мной";
             this.mineCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ObjectBox
-            // 
-            this.ObjectBox.FormattingEnabled = true;
-            this.ObjectBox.Items.AddRange(new object[] {
-            "Дескриптор",
-            "Аскриптор",
-            "Темин",
-            "Связь"});
-            this.ObjectBox.Location = new System.Drawing.Point(98, 15);
-            this.ObjectBox.Name = "ObjectBox";
-            this.ObjectBox.Size = new System.Drawing.Size(151, 24);
-            this.ObjectBox.TabIndex = 33;
-            this.ObjectBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox4_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 17);
-            this.label6.TabIndex = 32;
-            this.label6.Text = "Сущность";
             // 
             // EndDateBox
             // 
             this.EndDateBox.Location = new System.Drawing.Point(661, 43);
             this.EndDateBox.Name = "EndDateBox";
-            this.EndDateBox.Size = new System.Drawing.Size(151, 22);
+            this.EndDateBox.Size = new System.Drawing.Size(151, 20);
             this.EndDateBox.TabIndex = 29;
             // 
             // label5
@@ -235,7 +122,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(608, 46);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 17);
+            this.label5.Size = new System.Drawing.Size(23, 15);
             this.label5.TabIndex = 28;
             this.label5.Text = "По";
             // 
@@ -243,7 +130,7 @@
             // 
             this.StartDateBox.Location = new System.Drawing.Point(661, 15);
             this.StartDateBox.Name = "StartDateBox";
-            this.StartDateBox.Size = new System.Drawing.Size(151, 22);
+            this.StartDateBox.Size = new System.Drawing.Size(151, 20);
             this.StartDateBox.TabIndex = 27;
             // 
             // label4
@@ -251,7 +138,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(608, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 17);
+            this.label4.Size = new System.Drawing.Size(15, 15);
             this.label4.TabIndex = 26;
             this.label4.Text = "С";
             // 
@@ -260,7 +147,7 @@
             this.DescriptorBox.DataSource = this.descriptorsBindingSource;
             this.DescriptorBox.DisplayMember = "Descriptor_content";
             this.DescriptorBox.FormattingEnabled = true;
-            this.DescriptorBox.Location = new System.Drawing.Point(98, 51);
+            this.DescriptorBox.Location = new System.Drawing.Point(98, 18);
             this.DescriptorBox.Name = "DescriptorBox";
             this.DescriptorBox.Size = new System.Drawing.Size(151, 24);
             this.DescriptorBox.TabIndex = 25;
@@ -287,7 +174,6 @@
             this.RelationTypeBox.Size = new System.Drawing.Size(151, 24);
             this.RelationTypeBox.TabIndex = 24;
             this.RelationTypeBox.ValueMember = "ID";
-            this.RelationTypeBox.SelectedIndexChanged += new System.EventHandler(this.RelationTypeBox_SelectedIndexChanged);
             // 
             // relationtypesBindingSource
             // 
@@ -299,16 +185,16 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(290, 21);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 17);
+            this.label7.Size = new System.Drawing.Size(65, 15);
             this.label7.TabIndex = 23;
             this.label7.Text = "Вид связи";
             // 
             // DescriptorLabel
             // 
             this.DescriptorLabel.AutoSize = true;
-            this.DescriptorLabel.Location = new System.Drawing.Point(7, 51);
+            this.DescriptorLabel.Location = new System.Drawing.Point(7, 18);
             this.DescriptorLabel.Name = "DescriptorLabel";
-            this.DescriptorLabel.Size = new System.Drawing.Size(85, 34);
+            this.DescriptorLabel.Size = new System.Drawing.Size(75, 30);
             this.DescriptorLabel.TabIndex = 22;
             this.DescriptorLabel.Text = "Связанный\r\nдескриптор";
             // 
@@ -318,19 +204,9 @@
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(151, 23);
             this.AddButton.TabIndex = 10;
-            this.AddButton.Text = "Добавить условие";
+            this.AddButton.Text = "Найти";
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
-            // 
-            // QueryButton
-            // 
-            this.QueryButton.Location = new System.Drawing.Point(689, 271);
-            this.QueryButton.Name = "QueryButton";
-            this.QueryButton.Size = new System.Drawing.Size(145, 23);
-            this.QueryButton.TabIndex = 11;
-            this.QueryButton.Text = "Выполнить запрос";
-            this.QueryButton.UseVisualStyleBackColor = true;
-            this.QueryButton.Click += new System.EventHandler(this.QueryButton_Click);
             // 
             // descriptorsBindingSource1
             // 
@@ -361,11 +237,14 @@
             // 
             // answersPanel
             // 
+            this.answersPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.answersPanel.AutoScroll = true;
             this.answersPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.answersPanel.Location = new System.Drawing.Point(22, 315);
+            this.answersPanel.Location = new System.Drawing.Point(22, 187);
             this.answersPanel.Name = "answersPanel";
-            this.answersPanel.Size = new System.Drawing.Size(812, 120);
+            this.answersPanel.Size = new System.Drawing.Size(812, 248);
             this.answersPanel.TabIndex = 12;
             // 
             // SearchForm
@@ -374,16 +253,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 447);
             this.Controls.Add(this.answersPanel);
-            this.Controls.Add(this.QueryButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.QueryGrid);
             this.Name = "SearchForm";
             this.Text = "Поиск";
             this.Load += new System.EventHandler(this.SearchForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.QueryGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.descriptorsBindingSource)).EndInit();
@@ -401,12 +276,8 @@
         #endregion
         private DEDatabaseDataSet dEDatabaseDataSet;
         private System.Windows.Forms.BindingSource ascriptortypesBindingSource;
-        private System.Windows.Forms.DataGridView QueryGrid;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox ObjectBox;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker EndDateBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker StartDateBox;
@@ -421,17 +292,10 @@
         private DEDatabaseDataSetTableAdapters.DescriptorsTableAdapter descriptorsTableAdapter;
         private System.Windows.Forms.BindingSource descriptorsBindingSource1;
         private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.Button QueryButton;
         private System.Windows.Forms.BindingSource relationtypesBindingSource;
         private DEDatabaseDataSetTableAdapters.Relation_typesTableAdapter relation_typesTableAdapter;
         private System.Windows.Forms.BindingSource usersBindingSource1;
         private System.Windows.Forms.CheckBox mineCheckBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn objectColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptorColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn relationColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn mineColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn endColumn;
         private System.Windows.Forms.CheckBox allTimeBox;
         private System.Windows.Forms.FlowLayoutPanel answersPanel;
     }

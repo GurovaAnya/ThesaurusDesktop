@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DefinitionExtraction.CurrentSession" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CurrentSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.DBQueries">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEABAAAAAAAgACAAAAAUIACACAADAgAAAAAAAAGAA=</HashCode>
+      <FileName>DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.Definition" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAgAAgAAAAAAAAAAAAAAAIAAAGAAAAAEAAAA=</HashCode>
+      <FileName>DataClasses\Definition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.MSImport" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAQAAAABAAAAA=</HashCode>
+      <FileName>MSImport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.Link" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Link.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.Query" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAQAAAAAAAAQEAAAAAAAAEAIAABAABAAA=</HashCode>
+      <FileName>DataClasses\Query.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.Relation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAQAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\Relation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DefinitionExtraction.RelationsEnum" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAACAKAAAAAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\RelationsList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DefinitionExtraction.RelationsList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAABAAAAAACAQAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\RelationsList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DefinitionExtraction.Termin" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAAAAEAAgAAAAAAAAAAAAAgAJAAAEAAAAAEAAAE=</HashCode>
+      <FileName>DataClasses\Termin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.User" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAQCAAgAAAAAgAAAAAAAAAAAACAAIAAAAAAAg=</HashCode>
+      <FileName>DataClasses\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DefinitionExtraction.DeleteDefinitionState" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAQAgAAA=</HashCode>
+      <FileName>DB.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DefinitionExtraction.ReturnState">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>DB.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -17,28 +17,24 @@ namespace DefinitionExtraction
             InitializeComponent();
         }
 
-        private void signInButton_Click(object sender, EventArgs e)
+        private void SignInButton_Click(object sender, EventArgs e)
         {
-            using (DB db = new DB())
-            {
-                ReturnState rs = db.AddAscriptor((int)descriptorBox.SelectedValue, ascriptorBox.Text);
-                if (rs == ReturnState.Success)
-                    MessageBox.Show("Аскриптор добавлен");
-                else if (rs == ReturnState.UniqueConstraintError)
-                    MessageBox.Show("Данный аскриптор уже существует");
-                else
-                    MessageBox.Show("Ошибка подключения к базе данных");
-            }
+            DBQueries db = new DBQueries();
+            ReturnState rs = db.AddAscriptor((int)descriptorBox.SelectedValue, ascriptorBox.Text);
+            if (rs == ReturnState.Success)
+                MessageBox.Show("Аскриптор добавлен");
+            else if (rs == ReturnState.UniqueConstraintError)
+                MessageBox.Show("Данный аскриптор уже существует");
+            else
+                MessageBox.Show("Ошибка подключения к базе данных");
         }
 
         private void AscriptorForm_Load(object sender, EventArgs e)
         {
-            using (DB db = new DB())
-            {
-                descriptorBox.DataSource = db.GetTermins().Tables[0].DefaultView;
-                descriptorBox.DisplayMember = "Дескриптор";
-                descriptorBox.ValueMember = "id";
-            }
+            DBQueries db = new DBQueries();
+            descriptorBox.DataSource = db.GetTermins().Tables[0].DefaultView;
+            descriptorBox.DisplayMember = "Дескриптор";
+            descriptorBox.ValueMember = "id";
         }
     }
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DefinitionExtraction
 {
-    internal class CurrentSession
+    static internal class CurrentSession
     {
         public static EventHandler<EventArgs> OnUserChanged;
-        
         delegate void UserChanged();
         private static User currentUser;
+
         internal static User CurrentUser 
         {
             get { return currentUser; }

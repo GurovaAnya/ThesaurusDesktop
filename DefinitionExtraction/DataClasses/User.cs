@@ -9,7 +9,7 @@ namespace DefinitionExtraction
 {
     public class User
     {
-        public bool Registered {  get; private set; }
+        //public bool Registered {  get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -19,13 +19,11 @@ namespace DefinitionExtraction
 
         public User()
         {
-            Registered = false;
         }
 
         public User (string email, string password)
         {
             PassHash = GetHash(password, salt);
-            Registered = true;
             Email = email;
         }
 
@@ -35,7 +33,6 @@ namespace DefinitionExtraction
             LastName = lastName;
             Email = email;
             PassHash = GetHash(password, salt);
-            Registered = true;
         }
 
         public bool RightPass(string pass)
