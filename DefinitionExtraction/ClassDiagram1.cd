@@ -1,38 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DefinitionExtraction.DB">
-    <Position X="6" Y="0.5" Width="1.5" />
+  <Class Name="DefinitionExtraction.CurrentSession">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="DefinitionExtraction.CurrentSession.UserChanged" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CurrentSession.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAgAAAAAAAVAAAQAAEDAgAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CurrentSession.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentUser" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DefinitionExtraction.Definition">
+    <Position X="7.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAgAAgAAAAAAAAAAAAAAAIAAAGAAAAAEAAAA=</HashCode>
+      <FileName>DataClasses\Definition.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Links" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DefinitionExtraction.Termin">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAAAAEAAgAAAAAAAAAAAAAgAJAAAEAAAAAEAAAE=</HashCode>
+      <FileName>DataClasses\Termin.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Relations" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Definitions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DefinitionExtraction.User">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAQCAAgAAAAAgAAAAAAAAAAAACAAIAAAAAAAg=</HashCode>
+      <FileName>DataClasses\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.Query">
+    <Position X="11.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAQEAAAAAAAAEAAAABAABAAA=</HashCode>
+      <FileName>DataClasses\Query.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefinitionExtraction.DBQueries">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAkABAACAAAAgACAAAAAUIACACAADAgAAAAAAAAGAA=</HashCode>
       <FileName>DB.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DefinitionExtraction.CurrentSession">
-    <Position X="0.75" Y="0.5" Width="1.5" />
+  <Class Name="DefinitionExtraction.Link">
+    <Position X="7.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>CurrentState.cs</FileName>
+      <HashCode>AQAAAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Link.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DefinitionExtraction.Definition">
-    <Position X="2.5" Y="0.5" Width="1.5" />
+  <Class Name="DefinitionExtraction.Relation" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAgAAAAAAAAAAAAAAAAAAIAAAEAAAAAEAAAA=</HashCode>
-      <FileName>Definition.cs</FileName>
+      <HashCode>AAAAAAAAAAAAgAQAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\Relation.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DefinitionExtraction.Termin">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+  <Class Name="DefinitionExtraction.RelationsList">
+    <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAEAAAAAAAAAAAAAAAAAAJAAAEAAAAAEAAAE=</HashCode>
-      <FileName>Termin.cs</FileName>
+      <HashCode>AAAEAAAAAAAAABAAAAAACAQAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\RelationsList.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DefinitionExtraction.User">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+  <Class Name="DefinitionExtraction.RelationsEnum" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAQCAAAAAAEAAAAAAAAAAAAAACAAIAAAAAAAg=</HashCode>
-      <FileName>User.cs</FileName>
+      <HashCode>AAAAAAAAACAABAAAAACAKAAAAAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\RelationsList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DefinitionExtraction.MSImport">
+    <Position X="9.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAQAAAABAAAAA=</HashCode>
+      <FileName>MSImport.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

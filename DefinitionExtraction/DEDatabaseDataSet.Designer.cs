@@ -26,8 +26,6 @@ namespace DefinitionExtraction {
         
         private AscriptorsDataTable tableAscriptors;
         
-        private ConnectionsDataTable tableConnections;
-        
         private DefinitionLinksDataTable tableDefinitionLinks;
         
         private DefinitionsDataTable tableDefinitions;
@@ -42,12 +40,6 @@ namespace DefinitionExtraction {
         
         private global::System.Data.DataRelation relationFK_Ascriptors_Descriptors;
         
-        private global::System.Data.DataRelation relationFK_Connections_Definitions;
-        
-        private global::System.Data.DataRelation relationFK_Connections_Descriptors;
-        
-        private global::System.Data.DataRelation relationFK_Connections_Users;
-        
         private global::System.Data.DataRelation relationFK_DefinitionLinks_DefinitionLinks;
         
         private global::System.Data.DataRelation relationFK_DefinitionLinks_Definitions;
@@ -57,6 +49,10 @@ namespace DefinitionExtraction {
         private global::System.Data.DataRelation relationFK_Relations_Descriptors1;
         
         private global::System.Data.DataRelation relationFK_Relations_Relation_types;
+        
+        private global::System.Data.DataRelation relationFK_Definitions_Descriptors;
+        
+        private global::System.Data.DataRelation relationFK_Definitions_Users;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -88,9 +84,6 @@ namespace DefinitionExtraction {
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
                 if ((ds.Tables["Ascriptors"] != null)) {
                     base.Tables.Add(new AscriptorsDataTable(ds.Tables["Ascriptors"]));
-                }
-                if ((ds.Tables["Connections"] != null)) {
-                    base.Tables.Add(new ConnectionsDataTable(ds.Tables["Connections"]));
                 }
                 if ((ds.Tables["DefinitionLinks"] != null)) {
                     base.Tables.Add(new DefinitionLinksDataTable(ds.Tables["DefinitionLinks"]));
@@ -135,16 +128,6 @@ namespace DefinitionExtraction {
         public AscriptorsDataTable Ascriptors {
             get {
                 return this.tableAscriptors;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ConnectionsDataTable Connections {
-            get {
-                return this.tableConnections;
             }
         }
         
@@ -278,9 +261,6 @@ namespace DefinitionExtraction {
                 if ((ds.Tables["Ascriptors"] != null)) {
                     base.Tables.Add(new AscriptorsDataTable(ds.Tables["Ascriptors"]));
                 }
-                if ((ds.Tables["Connections"] != null)) {
-                    base.Tables.Add(new ConnectionsDataTable(ds.Tables["Connections"]));
-                }
                 if ((ds.Tables["DefinitionLinks"] != null)) {
                     base.Tables.Add(new DefinitionLinksDataTable(ds.Tables["DefinitionLinks"]));
                 }
@@ -338,12 +318,6 @@ namespace DefinitionExtraction {
                     this.tableAscriptors.InitVars();
                 }
             }
-            this.tableConnections = ((ConnectionsDataTable)(base.Tables["Connections"]));
-            if ((initTable == true)) {
-                if ((this.tableConnections != null)) {
-                    this.tableConnections.InitVars();
-                }
-            }
             this.tableDefinitionLinks = ((DefinitionLinksDataTable)(base.Tables["DefinitionLinks"]));
             if ((initTable == true)) {
                 if ((this.tableDefinitionLinks != null)) {
@@ -381,14 +355,13 @@ namespace DefinitionExtraction {
                 }
             }
             this.relationFK_Ascriptors_Descriptors = this.Relations["FK_Ascriptors_Descriptors"];
-            this.relationFK_Connections_Definitions = this.Relations["FK_Connections_Definitions"];
-            this.relationFK_Connections_Descriptors = this.Relations["FK_Connections_Descriptors"];
-            this.relationFK_Connections_Users = this.Relations["FK_Connections_Users"];
             this.relationFK_DefinitionLinks_DefinitionLinks = this.Relations["FK_DefinitionLinks_DefinitionLinks"];
             this.relationFK_DefinitionLinks_Definitions = this.Relations["FK_DefinitionLinks_Definitions"];
             this.relationFK_Relations_Descriptors = this.Relations["FK_Relations_Descriptors"];
             this.relationFK_Relations_Descriptors1 = this.Relations["FK_Relations_Descriptors1"];
             this.relationFK_Relations_Relation_types = this.Relations["FK_Relations_Relation_types"];
+            this.relationFK_Definitions_Descriptors = this.Relations["FK_Definitions_Descriptors"];
+            this.relationFK_Definitions_Users = this.Relations["FK_Definitions_Users"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -401,8 +374,6 @@ namespace DefinitionExtraction {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAscriptors = new AscriptorsDataTable();
             base.Tables.Add(this.tableAscriptors);
-            this.tableConnections = new ConnectionsDataTable();
-            base.Tables.Add(this.tableConnections);
             this.tableDefinitionLinks = new DefinitionLinksDataTable();
             base.Tables.Add(this.tableDefinitionLinks);
             this.tableDefinitions = new DefinitionsDataTable();
@@ -419,18 +390,6 @@ namespace DefinitionExtraction {
                         this.tableDescriptors.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAscriptors.Descriptor_IDColumn}, false);
             this.Relations.Add(this.relationFK_Ascriptors_Descriptors);
-            this.relationFK_Connections_Definitions = new global::System.Data.DataRelation("FK_Connections_Definitions", new global::System.Data.DataColumn[] {
-                        this.tableDefinitions.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableConnections.Definition_IDColumn}, false);
-            this.Relations.Add(this.relationFK_Connections_Definitions);
-            this.relationFK_Connections_Descriptors = new global::System.Data.DataRelation("FK_Connections_Descriptors", new global::System.Data.DataColumn[] {
-                        this.tableDescriptors.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableConnections.Descriptor_IDColumn}, false);
-            this.Relations.Add(this.relationFK_Connections_Descriptors);
-            this.relationFK_Connections_Users = new global::System.Data.DataRelation("FK_Connections_Users", new global::System.Data.DataColumn[] {
-                        this.tableUsers.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableConnections.User_IDColumn}, false);
-            this.Relations.Add(this.relationFK_Connections_Users);
             this.relationFK_DefinitionLinks_DefinitionLinks = new global::System.Data.DataRelation("FK_DefinitionLinks_DefinitionLinks", new global::System.Data.DataColumn[] {
                         this.tableDefinitions.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableDefinitionLinks.Definition_IDColumn}, false);
@@ -451,17 +410,19 @@ namespace DefinitionExtraction {
                         this.tableRelation_types.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableRelations.Relation_type_IDColumn}, false);
             this.Relations.Add(this.relationFK_Relations_Relation_types);
+            this.relationFK_Definitions_Descriptors = new global::System.Data.DataRelation("FK_Definitions_Descriptors", new global::System.Data.DataColumn[] {
+                        this.tableDescriptors.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDefinitions.Descriptor_IDColumn}, false);
+            this.Relations.Add(this.relationFK_Definitions_Descriptors);
+            this.relationFK_Definitions_Users = new global::System.Data.DataRelation("FK_Definitions_Users", new global::System.Data.DataColumn[] {
+                        this.tableUsers.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDefinitions.User_IDColumn}, false);
+            this.Relations.Add(this.relationFK_Definitions_Users);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeAscriptors() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeConnections() {
             return false;
         }
         
@@ -560,9 +521,6 @@ namespace DefinitionExtraction {
         public delegate void AscriptorsRowChangeEventHandler(object sender, AscriptorsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void ConnectionsRowChangeEventHandler(object sender, ConnectionsRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void DefinitionLinksRowChangeEventHandler(object sender, DefinitionLinksRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -592,6 +550,8 @@ namespace DefinitionExtraction {
             private global::System.Data.DataColumn columnAscriptor_content;
             
             private global::System.Data.DataColumn columnDescriptor_ID;
+            
+            private global::System.Data.DataColumn columnAscriptor_content1;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -652,6 +612,14 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Ascriptor_content1Column {
+                get {
+                    return this.columnAscriptor_content1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -687,12 +655,13 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public AscriptorsRow AddAscriptorsRow(int Ascriptor_content, DescriptorsRow parentDescriptorsRowByFK_Ascriptors_Descriptors) {
+            public AscriptorsRow AddAscriptorsRow(int Ascriptor_content, DescriptorsRow parentDescriptorsRowByFK_Ascriptors_Descriptors, string Ascriptor_content1) {
                 AscriptorsRow rowAscriptorsRow = ((AscriptorsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Ascriptor_content,
-                        null};
+                        null,
+                        Ascriptor_content1};
                 if ((parentDescriptorsRowByFK_Ascriptors_Descriptors != null)) {
                     columnValuesArray[2] = parentDescriptorsRowByFK_Ascriptors_Descriptors[6];
                 }
@@ -728,6 +697,7 @@ namespace DefinitionExtraction {
                 this.columnID = base.Columns["ID"];
                 this.columnAscriptor_content = base.Columns["Ascriptor_content"];
                 this.columnDescriptor_ID = base.Columns["Descriptor_ID"];
+                this.columnAscriptor_content1 = base.Columns["Ascriptor_content1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -739,6 +709,8 @@ namespace DefinitionExtraction {
                 base.Columns.Add(this.columnAscriptor_content);
                 this.columnDescriptor_ID = new global::System.Data.DataColumn("Descriptor_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescriptor_ID);
+                this.columnAscriptor_content1 = new global::System.Data.DataColumn("Ascriptor_content1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAscriptor_content1);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -749,6 +721,9 @@ namespace DefinitionExtraction {
                 this.columnID.Unique = true;
                 this.columnAscriptor_content.AllowDBNull = false;
                 this.columnDescriptor_ID.AllowDBNull = false;
+                this.columnAscriptor_content1.AllowDBNull = false;
+                this.columnAscriptor_content1.Caption = "Ascriptor_content";
+                this.columnAscriptor_content1.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -835,336 +810,6 @@ namespace DefinitionExtraction {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "AscriptorsDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ConnectionsDataTable : global::System.Data.TypedTableBase<ConnectionsRow> {
-            
-            private global::System.Data.DataColumn columnID;
-            
-            private global::System.Data.DataColumn columnDescriptor_ID;
-            
-            private global::System.Data.DataColumn columnDefinition_ID;
-            
-            private global::System.Data.DataColumn columnUser_ID;
-            
-            private global::System.Data.DataColumn columnInsert_date;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsDataTable() {
-                this.TableName = "Connections";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ConnectionsDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected ConnectionsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Descriptor_IDColumn {
-                get {
-                    return this.columnDescriptor_ID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Definition_IDColumn {
-                get {
-                    return this.columnDefinition_ID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn User_IDColumn {
-                get {
-                    return this.columnUser_ID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Insert_dateColumn {
-                get {
-                    return this.columnInsert_date;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow this[int index] {
-                get {
-                    return ((ConnectionsRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ConnectionsRowChangeEventHandler ConnectionsRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ConnectionsRowChangeEventHandler ConnectionsRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ConnectionsRowChangeEventHandler ConnectionsRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ConnectionsRowChangeEventHandler ConnectionsRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddConnectionsRow(ConnectionsRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow AddConnectionsRow(DescriptorsRow parentDescriptorsRowByFK_Connections_Descriptors, DefinitionsRow parentDefinitionsRowByFK_Connections_Definitions, UsersRow parentUsersRowByFK_Connections_Users, System.DateTime Insert_date) {
-                ConnectionsRow rowConnectionsRow = ((ConnectionsRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        null,
-                        null,
-                        null,
-                        null,
-                        Insert_date};
-                if ((parentDescriptorsRowByFK_Connections_Descriptors != null)) {
-                    columnValuesArray[1] = parentDescriptorsRowByFK_Connections_Descriptors[6];
-                }
-                if ((parentDefinitionsRowByFK_Connections_Definitions != null)) {
-                    columnValuesArray[2] = parentDefinitionsRowByFK_Connections_Definitions[0];
-                }
-                if ((parentUsersRowByFK_Connections_Users != null)) {
-                    columnValuesArray[3] = parentUsersRowByFK_Connections_Users[0];
-                }
-                rowConnectionsRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowConnectionsRow);
-                return rowConnectionsRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow FindByID(int ID) {
-                return ((ConnectionsRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                ConnectionsDataTable cln = ((ConnectionsDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new ConnectionsDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnDescriptor_ID = base.Columns["Descriptor_ID"];
-                this.columnDefinition_ID = base.Columns["Definition_ID"];
-                this.columnUser_ID = base.Columns["User_ID"];
-                this.columnInsert_date = base.Columns["Insert_date"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnDescriptor_ID = new global::System.Data.DataColumn("Descriptor_ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescriptor_ID);
-                this.columnDefinition_ID = new global::System.Data.DataColumn("Definition_ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDefinition_ID);
-                this.columnUser_ID = new global::System.Data.DataColumn("User_ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUser_ID);
-                this.columnInsert_date = new global::System.Data.DataColumn("Insert_date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnInsert_date);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AutoIncrementSeed = -1;
-                this.columnID.AutoIncrementStep = -1;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnID.Unique = true;
-                this.columnDescriptor_ID.AllowDBNull = false;
-                this.columnDefinition_ID.AllowDBNull = false;
-                this.columnInsert_date.AllowDBNull = false;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow NewConnectionsRow() {
-                return ((ConnectionsRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ConnectionsRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(ConnectionsRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ConnectionsRowChanged != null)) {
-                    this.ConnectionsRowChanged(this, new ConnectionsRowChangeEvent(((ConnectionsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ConnectionsRowChanging != null)) {
-                    this.ConnectionsRowChanging(this, new ConnectionsRowChangeEvent(((ConnectionsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ConnectionsRowDeleted != null)) {
-                    this.ConnectionsRowDeleted(this, new ConnectionsRowChangeEvent(((ConnectionsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ConnectionsRowDeleting != null)) {
-                    this.ConnectionsRowDeleting(this, new ConnectionsRowChangeEvent(((ConnectionsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveConnectionsRow(ConnectionsRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DEDatabaseDataSet ds = new DEDatabaseDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ConnectionsDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1537,6 +1182,12 @@ namespace DefinitionExtraction {
             
             private global::System.Data.DataColumn columnEnd_char;
             
+            private global::System.Data.DataColumn columnDescriptor_ID;
+            
+            private global::System.Data.DataColumn columnUser_ID;
+            
+            private global::System.Data.DataColumn columnInsert_date;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DefinitionsDataTable() {
@@ -1620,6 +1271,30 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Descriptor_IDColumn {
+                get {
+                    return this.columnDescriptor_ID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn User_IDColumn {
+                get {
+                    return this.columnUser_ID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Insert_dateColumn {
+                get {
+                    return this.columnInsert_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1655,7 +1330,7 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DefinitionsRow AddDefinitionsRow(string Definition_content, int Start_line, int Start_char, int End_line, int End_char) {
+            public DefinitionsRow AddDefinitionsRow(string Definition_content, int Start_line, int Start_char, int End_line, int End_char, DescriptorsRow parentDescriptorsRowByFK_Definitions_Descriptors, UsersRow parentUsersRowByFK_Definitions_Users, System.DateTime Insert_date) {
                 DefinitionsRow rowDefinitionsRow = ((DefinitionsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1663,7 +1338,16 @@ namespace DefinitionExtraction {
                         Start_line,
                         Start_char,
                         End_line,
-                        End_char};
+                        End_char,
+                        null,
+                        null,
+                        Insert_date};
+                if ((parentDescriptorsRowByFK_Definitions_Descriptors != null)) {
+                    columnValuesArray[6] = parentDescriptorsRowByFK_Definitions_Descriptors[6];
+                }
+                if ((parentUsersRowByFK_Definitions_Users != null)) {
+                    columnValuesArray[7] = parentUsersRowByFK_Definitions_Users[0];
+                }
                 rowDefinitionsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDefinitionsRow);
                 return rowDefinitionsRow;
@@ -1699,6 +1383,9 @@ namespace DefinitionExtraction {
                 this.columnStart_char = base.Columns["Start_char"];
                 this.columnEnd_line = base.Columns["End_line"];
                 this.columnEnd_char = base.Columns["End_char"];
+                this.columnDescriptor_ID = base.Columns["Descriptor_ID"];
+                this.columnUser_ID = base.Columns["User_ID"];
+                this.columnInsert_date = base.Columns["Insert_date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1716,6 +1403,12 @@ namespace DefinitionExtraction {
                 base.Columns.Add(this.columnEnd_line);
                 this.columnEnd_char = new global::System.Data.DataColumn("End_char", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEnd_char);
+                this.columnDescriptor_ID = new global::System.Data.DataColumn("Descriptor_ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescriptor_ID);
+                this.columnUser_ID = new global::System.Data.DataColumn("User_ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUser_ID);
+                this.columnInsert_date = new global::System.Data.DataColumn("Insert_date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInsert_date);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -1730,6 +1423,9 @@ namespace DefinitionExtraction {
                 this.columnStart_char.AllowDBNull = false;
                 this.columnEnd_line.AllowDBNull = false;
                 this.columnEnd_char.AllowDBNull = false;
+                this.columnDescriptor_ID.AllowDBNull = false;
+                this.columnUser_ID.AllowDBNull = false;
+                this.columnInsert_date.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3192,6 +2888,17 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Ascriptor_content1 {
+                get {
+                    return ((string)(this[this.tableAscriptors.Ascriptor_content1Column]));
+                }
+                set {
+                    this[this.tableAscriptors.Ascriptor_content1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DescriptorsRow DescriptorsRow {
                 get {
                     return ((DescriptorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Ascriptors_Descriptors"])));
@@ -3199,126 +2906,6 @@ namespace DefinitionExtraction {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Ascriptors_Descriptors"]);
                 }
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class ConnectionsRow : global::System.Data.DataRow {
-            
-            private ConnectionsDataTable tableConnections;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ConnectionsRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableConnections = ((ConnectionsDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableConnections.IDColumn]));
-                }
-                set {
-                    this[this.tableConnections.IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Descriptor_ID {
-                get {
-                    return ((int)(this[this.tableConnections.Descriptor_IDColumn]));
-                }
-                set {
-                    this[this.tableConnections.Descriptor_IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Definition_ID {
-                get {
-                    return ((int)(this[this.tableConnections.Definition_IDColumn]));
-                }
-                set {
-                    this[this.tableConnections.Definition_IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int User_ID {
-                get {
-                    try {
-                        return ((int)(this[this.tableConnections.User_IDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'User_ID\' в таблице \'Connections\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableConnections.User_IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Insert_date {
-                get {
-                    return ((global::System.DateTime)(this[this.tableConnections.Insert_dateColumn]));
-                }
-                set {
-                    this[this.tableConnections.Insert_dateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DefinitionsRow DefinitionsRow {
-                get {
-                    return ((DefinitionsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Connections_Definitions"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Connections_Definitions"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DescriptorsRow DescriptorsRow {
-                get {
-                    return ((DescriptorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Connections_Descriptors"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Connections_Descriptors"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UsersRow UsersRow {
-                get {
-                    return ((UsersRow)(this.GetParentRow(this.Table.ParentRelations["FK_Connections_Users"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Connections_Users"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsUser_IDNull() {
-                return this.IsNull(this.tableConnections.User_IDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetUser_IDNull() {
-                this[this.tableConnections.User_IDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3485,12 +3072,56 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow[] GetConnectionsRows() {
-                if ((this.Table.ChildRelations["FK_Connections_Definitions"] == null)) {
-                    return new ConnectionsRow[0];
+            public int Descriptor_ID {
+                get {
+                    return ((int)(this[this.tableDefinitions.Descriptor_IDColumn]));
                 }
-                else {
-                    return ((ConnectionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Connections_Definitions"])));
+                set {
+                    this[this.tableDefinitions.Descriptor_IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int User_ID {
+                get {
+                    return ((int)(this[this.tableDefinitions.User_IDColumn]));
+                }
+                set {
+                    this[this.tableDefinitions.User_IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime Insert_date {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDefinitions.Insert_dateColumn]));
+                }
+                set {
+                    this[this.tableDefinitions.Insert_dateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DescriptorsRow DescriptorsRow {
+                get {
+                    return ((DescriptorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Definitions_Descriptors"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Definitions_Descriptors"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public UsersRow UsersRow {
+                get {
+                    return ((UsersRow)(this.GetParentRow(this.Table.ParentRelations["FK_Definitions_Users"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Definitions_Users"]);
                 }
             }
             
@@ -3627,17 +3258,6 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow[] GetConnectionsRows() {
-                if ((this.Table.ChildRelations["FK_Connections_Descriptors"] == null)) {
-                    return new ConnectionsRow[0];
-                }
-                else {
-                    return ((ConnectionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Connections_Descriptors"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DefinitionLinksRow[] GetDefinitionLinksRows() {
                 if ((this.Table.ChildRelations["FK_DefinitionLinks_Definitions"] == null)) {
                     return new DefinitionLinksRow[0];
@@ -3666,6 +3286,17 @@ namespace DefinitionExtraction {
                 }
                 else {
                     return ((RelationsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Relations_Descriptors1"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DefinitionsRow[] GetDefinitionsRows() {
+                if ((this.Table.ChildRelations["FK_Definitions_Descriptors"] == null)) {
+                    return new DefinitionsRow[0];
+                }
+                else {
+                    return ((DefinitionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Definitions_Descriptors"])));
                 }
             }
         }
@@ -3892,12 +3523,12 @@ namespace DefinitionExtraction {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow[] GetConnectionsRows() {
-                if ((this.Table.ChildRelations["FK_Connections_Users"] == null)) {
-                    return new ConnectionsRow[0];
+            public DefinitionsRow[] GetDefinitionsRows() {
+                if ((this.Table.ChildRelations["FK_Definitions_Users"] == null)) {
+                    return new DefinitionsRow[0];
                 }
                 else {
-                    return ((ConnectionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Connections_Users"])));
+                    return ((DefinitionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Definitions_Users"])));
                 }
             }
         }
@@ -3922,40 +3553,6 @@ namespace DefinitionExtraction {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public AscriptorsRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class ConnectionsRowChangeEvent : global::System.EventArgs {
-            
-            private ConnectionsRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRowChangeEvent(ConnectionsRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ConnectionsRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4300,8 +3897,8 @@ namespace DefinitionExtraction.DEDatabaseDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Ascriptors";
             tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("Ascriptor_content", "Ascriptor_content");
             tableMapping.ColumnMappings.Add("Descriptor_ID", "Descriptor_ID");
+            tableMapping.ColumnMappings.Add("Ascriptor_content", "Ascriptor_content1");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -4310,7 +3907,7 @@ namespace DefinitionExtraction.DEDatabaseDataSetTableAdapters {
                 "D))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -4318,17 +3915,17 @@ namespace DefinitionExtraction.DEDatabaseDataSetTableAdapters {
                 "criptor_content, @Descriptor_ID);\r\nSELECT ID, Ascriptor_content, Descriptor_ID F" +
                 "ROM Ascriptors WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Ascriptors] SET [Ascriptor_content] = @Ascriptor_content, [Descriptor_ID] = @Descriptor_ID WHERE (([ID] = @Original_ID) AND ([Ascriptor_content] = @Original_Ascriptor_content) AND ([Descriptor_ID] = @Original_Descriptor_ID));
 SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ascriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ascriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -4407,9 +4004,14 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_Ascriptor_content, int Original_Descriptor_ID) {
+        public virtual int Delete(int Original_ID, string Original_Ascriptor_content, int Original_Descriptor_ID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Ascriptor_content));
+            if ((Original_Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Original_Ascriptor_content");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_Ascriptor_content));
+            }
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Descriptor_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4431,8 +4033,13 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Ascriptor_content, int Descriptor_ID) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Ascriptor_content));
+        public virtual int Insert(string Ascriptor_content, int Descriptor_ID) {
+            if ((Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Ascriptor_content");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Ascriptor_content));
+            }
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Descriptor_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4454,11 +4061,21 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Ascriptor_content, int Descriptor_ID, int Original_ID, int Original_Ascriptor_content, int Original_Descriptor_ID, int ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Ascriptor_content));
+        public virtual int Update(string Ascriptor_content, int Descriptor_ID, int Original_ID, string Original_Ascriptor_content, int Original_Descriptor_ID, int ID) {
+            if ((Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Ascriptor_content");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Ascriptor_content));
+            }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Descriptor_ID));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Ascriptor_content));
+            if ((Original_Ascriptor_content == null)) {
+                throw new global::System.ArgumentNullException("Original_Ascriptor_content");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_Ascriptor_content));
+            }
             this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Descriptor_ID));
             this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
@@ -4481,358 +4098,8 @@ SELECT ID, Ascriptor_content, Descriptor_ID FROM Ascriptors WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Ascriptor_content, int Descriptor_ID, int Original_ID, int Original_Ascriptor_content, int Original_Descriptor_ID) {
+        public virtual int Update(string Ascriptor_content, int Descriptor_ID, int Original_ID, string Original_Ascriptor_content, int Original_Descriptor_ID) {
             return this.Update(Ascriptor_content, Descriptor_ID, Original_ID, Original_Ascriptor_content, Original_Descriptor_ID, Original_ID);
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ConnectionsTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private global::System.Data.SqlClient.SqlConnection _connection;
-        
-        private global::System.Data.SqlClient.SqlTransaction _transaction;
-        
-        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ConnectionsTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        internal global::System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        internal global::System.Data.SqlClient.SqlTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Connections";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("Descriptor_ID", "Descriptor_ID");
-            tableMapping.ColumnMappings.Add("Definition_ID", "Definition_ID");
-            tableMapping.ColumnMappings.Add("User_ID", "User_ID");
-            tableMapping.ColumnMappings.Add("Insert_date", "Insert_date");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Connections] WHERE (([ID] = @Original_ID) AND ([Descriptor_ID] = @Original_Descriptor_ID) AND ([Definition_ID] = @Original_Definition_ID) AND ((@IsNull_User_ID = 1 AND [User_ID] IS NULL) OR ([User_ID] = @Original_User_ID)) AND ([Insert_date] = @Original_Insert_date))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Definition_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Connections] ([Descriptor_ID], [Definition_ID], [User_ID], [Insert_date]) VALUES (@Descriptor_ID, @Definition_ID, @User_ID, @Insert_date);
-SELECT ID, Descriptor_ID, Definition_ID, User_ID, Insert_date FROM Connections WHERE (ID = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Definition_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Connections] SET [Descriptor_ID] = @Descriptor_ID, [Definition_ID] = @Definition_ID, [User_ID] = @User_ID, [Insert_date] = @Insert_date WHERE (([ID] = @Original_ID) AND ([Descriptor_ID] = @Original_Descriptor_ID) AND ([Definition_ID] = @Original_Definition_ID) AND ((@IsNull_User_ID = 1 AND [User_ID] IS NULL) OR ([User_ID] = @Original_User_ID)) AND ([Insert_date] = @Original_Insert_date));
-SELECT ID, Descriptor_ID, Definition_ID, User_ID, Insert_date FROM Connections WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Definition_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Definition_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DefinitionExtraction.Properties.Settings.Default.DEDatabaseConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Descriptor_ID, Definition_ID, User_ID, Insert_date FROM dbo.Connection" +
-                "s";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DEDatabaseDataSet.ConnectionsDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DEDatabaseDataSet.ConnectionsDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            DEDatabaseDataSet.ConnectionsDataTable dataTable = new DEDatabaseDataSet.ConnectionsDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DEDatabaseDataSet.ConnectionsDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DEDatabaseDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Connections");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_Descriptor_ID, int Original_Definition_ID, global::System.Nullable<int> Original_User_ID, System.DateTime Original_Insert_date) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Descriptor_ID));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Definition_ID));
-            if ((Original_User_ID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_User_ID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.DeleteCommand.Parameters[5].Value = ((System.DateTime)(Original_Insert_date));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Descriptor_ID, int Definition_ID, global::System.Nullable<int> User_ID, System.DateTime Insert_date) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Descriptor_ID));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Definition_ID));
-            if ((User_ID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(User_ID.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(Insert_date));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Descriptor_ID, int Definition_ID, global::System.Nullable<int> User_ID, System.DateTime Insert_date, int Original_ID, int Original_Descriptor_ID, int Original_Definition_ID, global::System.Nullable<int> Original_User_ID, System.DateTime Original_Insert_date, int ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Descriptor_ID));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Definition_ID));
-            if ((User_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(User_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(Insert_date));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Descriptor_ID));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Definition_ID));
-            if ((Original_User_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_User_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_Insert_date));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(ID));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Descriptor_ID, int Definition_ID, global::System.Nullable<int> User_ID, System.DateTime Insert_date, int Original_ID, int Original_Descriptor_ID, int Original_Definition_ID, global::System.Nullable<int> Original_User_ID, System.DateTime Original_Insert_date) {
-            return this.Update(Descriptor_ID, Definition_ID, User_ID, Insert_date, Original_ID, Original_Descriptor_ID, Original_Definition_ID, Original_User_ID, Original_Insert_date, Original_ID);
         }
     }
     
@@ -5281,10 +4548,13 @@ SELECT ID, Descriptor_ID, Start_char, Definition_ID FROM DefinitionLinks WHERE (
             tableMapping.ColumnMappings.Add("Start_char", "Start_char");
             tableMapping.ColumnMappings.Add("End_line", "End_line");
             tableMapping.ColumnMappings.Add("End_char", "End_char");
+            tableMapping.ColumnMappings.Add("Descriptor_ID", "Descriptor_ID");
+            tableMapping.ColumnMappings.Add("User_ID", "User_ID");
+            tableMapping.ColumnMappings.Add("Insert_date", "Insert_date");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Definitions] WHERE (([ID] = @Original_ID) AND ([Definition_content] = @Original_Definition_content) AND ([Start_line] = @Original_Start_line) AND ([Start_char] = @Original_Start_char) AND ([End_line] = @Original_End_line) AND ([End_char] = @Original_End_char))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Definitions] WHERE (([ID] = @Original_ID) AND ([Definition_content] = @Original_Definition_content) AND ([Start_line] = @Original_Start_line) AND ([Start_char] = @Original_Start_char) AND ([End_line] = @Original_End_line) AND ([End_char] = @Original_End_char) AND ([Descriptor_ID] = @Original_Descriptor_ID) AND ([User_ID] = @Original_User_ID) AND ([Insert_date] = @Original_Insert_date))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Definition_content", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -5292,32 +4562,44 @@ SELECT ID, Descriptor_ID, Start_char, Definition_ID FROM DefinitionLinks WHERE (
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Definitions] ([Definition_content], [Start_line], [Start_char], [End_line], [End_char]) VALUES (@Definition_content, @Start_line, @Start_char, @End_line, @End_char);
-SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM Definitions WHERE (ID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Definitions] ([Definition_content], [Start_line], [Start_char], [End_line], [End_char], [Descriptor_ID], [User_ID], [Insert_date]) VALUES (@Definition_content, @Start_line, @Start_char, @End_line, @End_char, @Descriptor_ID, @User_ID, @Insert_date);
+SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char, Descriptor_ID, User_ID, Insert_date FROM Definitions WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Definition_content", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Definitions] SET [Definition_content] = @Definition_content, [Start_line] = @Start_line, [Start_char] = @Start_char, [End_line] = @End_line, [End_char] = @End_char WHERE (([ID] = @Original_ID) AND ([Definition_content] = @Original_Definition_content) AND ([Start_line] = @Original_Start_line) AND ([Start_char] = @Original_Start_char) AND ([End_line] = @Original_End_line) AND ([End_char] = @Original_End_char));
-SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM Definitions WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Definitions] SET [Definition_content] = @Definition_content, [Start_line] = @Start_line, [Start_char] = @Start_char, [End_line] = @End_line, [End_char] = @End_char, [Descriptor_ID] = @Descriptor_ID, [User_ID] = @User_ID, [Insert_date] = @Insert_date WHERE (([ID] = @Original_ID) AND ([Definition_content] = @Original_Definition_content) AND ([Start_line] = @Original_Start_line) AND ([Start_char] = @Original_Start_char) AND ([End_line] = @Original_End_line) AND ([End_char] = @Original_End_char) AND ([Descriptor_ID] = @Original_Descriptor_ID) AND ([User_ID] = @Original_User_ID) AND ([Insert_date] = @Original_Insert_date));
+SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char, Descriptor_ID, User_ID, Insert_date FROM Definitions WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Definition_content", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_content", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Definition_content", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Definition_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_User_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Insert_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Insert_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -5334,8 +4616,8 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM db" +
-                "o.Definitions";
+            this._commandCollection[0].CommandText = "SELECT     ID, Definition_content, Start_line, Start_char, End_line, End_char, De" +
+                "scriptor_ID, User_ID, Insert_date\r\nFROM        Definitions";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5396,7 +4678,7 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, string Original_Definition_content, int Original_Start_line, int Original_Start_char, int Original_End_line, int Original_End_char) {
+        public virtual int Delete(int Original_ID, string Original_Definition_content, int Original_Start_line, int Original_Start_char, int Original_End_line, int Original_End_char, int Original_Descriptor_ID, int Original_User_ID, System.DateTime Original_Insert_date) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             if ((Original_Definition_content == null)) {
                 throw new global::System.ArgumentNullException("Original_Definition_content");
@@ -5408,6 +4690,9 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
             this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_Start_char));
             this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_End_line));
             this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_End_char));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_Descriptor_ID));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((int)(Original_User_ID));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_Insert_date));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5428,7 +4713,7 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Definition_content, int Start_line, int Start_char, int End_line, int End_char) {
+        public virtual int Insert(string Definition_content, int Start_line, int Start_char, int End_line, int End_char, int Descriptor_ID, int User_ID, System.DateTime Insert_date) {
             if ((Definition_content == null)) {
                 throw new global::System.ArgumentNullException("Definition_content");
             }
@@ -5439,6 +4724,9 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Start_char));
             this.Adapter.InsertCommand.Parameters[3].Value = ((int)(End_line));
             this.Adapter.InsertCommand.Parameters[4].Value = ((int)(End_char));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(Descriptor_ID));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(User_ID));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((System.DateTime)(Insert_date));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5459,7 +4747,25 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Definition_content, int Start_line, int Start_char, int End_line, int End_char, int Original_ID, string Original_Definition_content, int Original_Start_line, int Original_Start_char, int Original_End_line, int Original_End_char, int ID) {
+        public virtual int Update(
+                    string Definition_content, 
+                    int Start_line, 
+                    int Start_char, 
+                    int End_line, 
+                    int End_char, 
+                    int Descriptor_ID, 
+                    int User_ID, 
+                    System.DateTime Insert_date, 
+                    int Original_ID, 
+                    string Original_Definition_content, 
+                    int Original_Start_line, 
+                    int Original_Start_char, 
+                    int Original_End_line, 
+                    int Original_End_char, 
+                    int Original_Descriptor_ID, 
+                    int Original_User_ID, 
+                    System.DateTime Original_Insert_date, 
+                    int ID) {
             if ((Definition_content == null)) {
                 throw new global::System.ArgumentNullException("Definition_content");
             }
@@ -5470,18 +4776,24 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Start_char));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(End_line));
             this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(End_char));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Descriptor_ID));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(User_ID));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Insert_date));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_ID));
             if ((Original_Definition_content == null)) {
                 throw new global::System.ArgumentNullException("Original_Definition_content");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Definition_content));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_Definition_content));
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Start_line));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Start_char));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_End_line));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_End_char));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(ID));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_Start_line));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_Start_char));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_End_line));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_End_char));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_Descriptor_ID));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_User_ID));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((System.DateTime)(Original_Insert_date));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5502,8 +4814,25 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Definition_content, int Start_line, int Start_char, int End_line, int End_char, int Original_ID, string Original_Definition_content, int Original_Start_line, int Original_Start_char, int Original_End_line, int Original_End_char) {
-            return this.Update(Definition_content, Start_line, Start_char, End_line, End_char, Original_ID, Original_Definition_content, Original_Start_line, Original_Start_char, Original_End_line, Original_End_char, Original_ID);
+        public virtual int Update(
+                    string Definition_content, 
+                    int Start_line, 
+                    int Start_char, 
+                    int End_line, 
+                    int End_char, 
+                    int Descriptor_ID, 
+                    int User_ID, 
+                    System.DateTime Insert_date, 
+                    int Original_ID, 
+                    string Original_Definition_content, 
+                    int Original_Start_line, 
+                    int Original_Start_char, 
+                    int Original_End_line, 
+                    int Original_End_char, 
+                    int Original_Descriptor_ID, 
+                    int Original_User_ID, 
+                    System.DateTime Original_Insert_date) {
+            return this.Update(Definition_content, Start_line, Start_char, End_line, End_char, Descriptor_ID, User_ID, Insert_date, Original_ID, Original_Definition_content, Original_Start_line, Original_Start_char, Original_End_line, Original_End_char, Original_Descriptor_ID, Original_User_ID, Original_Insert_date, Original_ID);
         }
     }
     
@@ -5646,7 +4975,7 @@ SELECT ID, Definition_content, Start_line, Start_char, End_line, End_char FROM D
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Relator", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -5658,7 +4987,7 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Descriptors] SET [Descriptor_content] = @Descriptor_content, [Start_line] = @Start_line, [Start_char] = @Start_char, [End_line] = @End_line, [End_char] = @End_char, [Relator] = @Relator WHERE (([Descriptor_content] = @Original_Descriptor_content) AND ([Start_line] = @Original_Start_line) AND ([Start_char] = @Original_Start_char) AND ([End_line] = @Original_End_line) AND ([End_char] = @Original_End_char) AND ((@IsNull_Relator = 1 AND [Relator] IS NULL) OR ([Relator] = @Original_Relator)) AND ([ID] = @Original_ID));
@@ -5669,14 +4998,14 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Descriptor_content", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descriptor_content", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Start_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Start_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_line", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_line", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_End_char", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "End_char", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Relator", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Relator", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Relator", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -5691,12 +5020,22 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, I" +
                 "D FROM dbo.Descriptors";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT Descriptor_content, End_char, End_line, ID, Relator, Start_char, Start_lin" +
+                "e FROM Descriptors";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT Descriptor_content, End_char, End_line, ID, Relator, Start_char, Start_lin" +
+                "e FROM Descriptors";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5721,6 +5060,32 @@ SELECT Descriptor_content, Start_line, Start_char, End_line, End_char, Relator, 
             DEDatabaseDataSet.DescriptorsDataTable dataTable = new DEDatabaseDataSet.DescriptorsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(DEDatabaseDataSet.DescriptorsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy1(DEDatabaseDataSet.DescriptorsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6955,8 +6320,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
         
         private AscriptorsTableAdapter _ascriptorsTableAdapter;
         
-        private ConnectionsTableAdapter _connectionsTableAdapter;
-        
         private DefinitionLinksTableAdapter _definitionLinksTableAdapter;
         
         private DefinitionsTableAdapter _definitionsTableAdapter;
@@ -6995,20 +6358,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
             }
             set {
                 this._ascriptorsTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public ConnectionsTableAdapter ConnectionsTableAdapter {
-            get {
-                return this._connectionsTableAdapter;
-            }
-            set {
-                this._connectionsTableAdapter = value;
             }
         }
         
@@ -7119,10 +6468,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                             && (this._ascriptorsTableAdapter.Connection != null))) {
                     return this._ascriptorsTableAdapter.Connection;
                 }
-                if (((this._connectionsTableAdapter != null) 
-                            && (this._connectionsTableAdapter.Connection != null))) {
-                    return this._connectionsTableAdapter.Connection;
-                }
                 if (((this._definitionLinksTableAdapter != null) 
                             && (this._definitionLinksTableAdapter.Connection != null))) {
                     return this._definitionLinksTableAdapter.Connection;
@@ -7163,9 +6508,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                 if ((this._ascriptorsTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._connectionsTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 if ((this._definitionLinksTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -7195,30 +6537,12 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(DEDatabaseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._definitionsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Definitions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._definitionsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._descriptorsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Descriptors.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._descriptorsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._relation_typesTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Relation_types.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._relation_typesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -7231,21 +6555,30 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._definitionsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Definitions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._definitionsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._relation_typesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Relation_types.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._relation_typesTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._ascriptorsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Ascriptors.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._ascriptorsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._connectionsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Connections.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._connectionsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -7277,27 +6610,11 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(DEDatabaseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._definitionsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Definitions.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._definitionsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._descriptorsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Descriptors.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._descriptorsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._relation_typesTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Relation_types.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._relation_typesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7309,19 +6626,27 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._definitionsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Definitions.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._definitionsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._relation_typesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Relation_types.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._relation_typesTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._ascriptorsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Ascriptors.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._ascriptorsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._connectionsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Connections.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._connectionsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7367,27 +6692,11 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._connectionsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Connections.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._connectionsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._ascriptorsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Ascriptors.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._ascriptorsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._usersTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Users.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._usersTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -7399,19 +6708,27 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._descriptorsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Descriptors.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._descriptorsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._definitionsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Definitions.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._definitionsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._usersTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Users.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._usersTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._descriptorsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Descriptors.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._descriptorsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -7456,11 +6773,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
             }
             if (((this._ascriptorsTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._ascriptorsTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
-                        "r, должны использовать одинаковую строку подключения.");
-            }
-            if (((this._connectionsTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._connectionsTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
                         "r, должны использовать одинаковую строку подключения.");
             }
@@ -7533,15 +6845,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                     if (this._ascriptorsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._ascriptorsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._ascriptorsTableAdapter.Adapter);
-                    }
-                }
-                if ((this._connectionsTableAdapter != null)) {
-                    revertConnections.Add(this._connectionsTableAdapter, this._connectionsTableAdapter.Connection);
-                    this._connectionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._connectionsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._connectionsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._connectionsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._connectionsTableAdapter.Adapter);
                     }
                 }
                 if ((this._definitionLinksTableAdapter != null)) {
@@ -7659,10 +6962,6 @@ SELECT ID, First_name, Last_name, Email, Password_hash, registration_date FROM U
                 if ((this._ascriptorsTableAdapter != null)) {
                     this._ascriptorsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._ascriptorsTableAdapter]));
                     this._ascriptorsTableAdapter.Transaction = null;
-                }
-                if ((this._connectionsTableAdapter != null)) {
-                    this._connectionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._connectionsTableAdapter]));
-                    this._connectionsTableAdapter.Transaction = null;
                 }
                 if ((this._definitionLinksTableAdapter != null)) {
                     this._definitionLinksTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._definitionLinksTableAdapter]));
