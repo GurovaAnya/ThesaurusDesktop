@@ -71,22 +71,12 @@ namespace DefinitionExtraction
 
                 try
                 {
-                    command.CommandText =
-                        "Insert into Descriptors VALUES (@descriptor, @stL, @stC, @eL, @eC, @relator)" +
-                        "select scope_identity()";
                     command.Parameters.AddWithValue("@descriptor", descriptor);
                     command.Parameters.AddWithValue("@stL", stL);
                     command.Parameters.AddWithValue("@stC", stC);
                     command.Parameters.AddWithValue("@eL", eL);
                     command.Parameters.AddWithValue("@eC", eC);
                     command.Parameters.AddWithValue("@relator", relator);
-                    var des_id = command.ExecuteScalar();
-
-                    command.Parameters.AddWithValue("@descriptor_id", des_id);
-
-                    command.CommandText =
-                        "Insert into Definitions(definition_content, start_line, start_char, end_line, end_char, descriptor_id, insert_date, user_id)" +
-                        " VALUES (@description, @stLD, @stCD, @eLD, @eCD, @descriptor_id,CURRENT_TIMESTAMP, @user_id)";                    
                     command.Parameters.AddWithValue("@description", description);
                     command.Parameters.AddWithValue("@stLD", stLD);
                     command.Parameters.AddWithValue("@stCD", stCD);
@@ -94,6 +84,17 @@ namespace DefinitionExtraction
                     command.Parameters.AddWithValue("@eCD", eCD);
                     command.Parameters.AddWithValue("@user_id", CurrentSession.CurrentUser.ID);
 
+                    command.CommandText =
+                        "Insert into Descriptors VALUES (@descriptor, @stL, @stC, @eL, @eC, @relator)" +
+                        "select scope_identity()";
+                    
+                    var des_id = command.ExecuteScalar();
+                    command.Parameters.AddWithValue("@descriptor_id", des_id);
+
+                    command.CommandText =
+                        "Insert into Definitions(definition_content, start_line, start_char, end_line, end_char, " +
+                        "descriptor_id, insert_date, user_id)" +
+                        " VALUES (@description, @stLD, @stCD, @eLD, @eCD, @descriptor_id,CURRENT_TIMESTAMP, @user_id)";                    
                     command.ExecuteNonQuery();
 
                     transaction.Commit();
@@ -346,12 +347,13 @@ namespace DefinitionExtraction
                     {
                         command.CommandText =
                             "Insert into Descriptors VALUES (@descriptor, @stL, @stC, @eL, @eC, @relator); " +
-                        "select scope_identity()";
+                            "select scope_identity()";
                         double dID = (double)command.ExecuteScalar();
                         command.Parameters.AddWithValue("@dID", dID);
                         
                         command.CommandText =
-                            "Update Definitions set descriptor_id = @dID definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD " +
+                            "Update Definitions set descriptor_id = @dID definition_content = @description, " +
+                            "start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD " +
                             " where id= @id";
 
                         command.ExecuteNonQuery();
@@ -359,14 +361,16 @@ namespace DefinitionExtraction
                     else
                     {
                         command.CommandText =
-                            "Update Descriptors set descriptor_content = @descriptor, start_line=@stL, start_char=@stC,end_line=@eL, end_char=@eC, relator=@relator " +
+                            "Update Descriptors set descriptor_content = @descriptor, start_line=@stL, " +
+                            "start_char=@stC,end_line=@eL, end_char=@eC, relator=@relator " +
                             "where id = (select descriptor_id from definitions where id=@id)";
 
                         command.ExecuteNonQuery();
 
                         command.CommandText =
-                            "Update Definitions set definition_content = @description, start_line=@stLD, start_char=@stCD, end_line=@eLD, end_char=@eCD " +
-                            " where id= @id";
+                            "Update Definitions set definition_content = @description, start_line=@stLD, " +
+                            "start_char=@stCD, end_line=@eLD, end_char=@eCD " +
+                            "where id= @id";
 
                         command.ExecuteNonQuery();
                     }

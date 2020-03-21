@@ -28,6 +28,7 @@ namespace DefinitionExtraction
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+           
         }
 
         private void Button4_Click(object sender, EventArgs e)
@@ -96,7 +97,12 @@ namespace DefinitionExtraction
                 answersPanel.Controls.Add(tc);
             }
             ItemClick(answersPanel.Controls[0], null);
-            ChangeButton.Enabled = CurrentSession.CurrentUser != null;
+            bool reg = CurrentSession.CurrentUser != null;
+            ChangeButton.Enabled = reg && (CheckedItem != null);
+            addRelationButton.Enabled = reg && (CheckedItem != null);
+            AddSynonymButton.Enabled = reg && (CheckedItem != null);
+            addLinkButton.Enabled = reg && (CheckedItem != null);
+            deleteDefinitionButton.Enabled = reg && (CheckedItem != null);
         }
 
         private TerminControl CheckedItem;
@@ -138,9 +144,11 @@ namespace DefinitionExtraction
                 this.NameBox.Text = "Войти";
             DeleteButton.Enabled = reg;
             AddButton.Enabled = reg;
-            ChangeButton.Enabled = reg;
-            addRelationButton.Enabled = reg;
-            AddSynonymButton.Enabled = reg;
+            ChangeButton.Enabled = reg&&(CheckedItem!=null);
+            addRelationButton.Enabled = reg&&(CheckedItem !=null);
+            AddSynonymButton.Enabled = reg&&(CheckedItem!=null);
+            deleteDefinitionButton.Enabled = reg && (CheckedItem != null);
+            addLinkButton.Enabled = reg && (CheckedItem != null); 
         }
 
         private void ВыходToolStripMenuItem_Click(object sender, EventArgs e)

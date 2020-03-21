@@ -44,7 +44,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.AddSynonymButton = new System.Windows.Forms.Button();
             this.addRelationButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.InfoButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.terminView = new System.Windows.Forms.DataGridView();
@@ -60,7 +59,7 @@
             this.descriptorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.descriptorsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.definitionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.addLinkButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.terminView)).BeginInit();
@@ -81,7 +80,7 @@
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(935, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(935, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -91,7 +90,7 @@
             this.открытьToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 26);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // открытьToolStripMenuItem
@@ -111,7 +110,7 @@
             // правкаToolStripMenuItem
             // 
             this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 26);
             this.правкаToolStripMenuItem.Text = "Правка";
             // 
             // отчетToolStripMenuItem
@@ -119,7 +118,7 @@
             this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.показатьОтчетToolStripMenuItem});
             this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
             this.отчетToolStripMenuItem.Text = "Отчет";
             // 
             // показатьОтчетToolStripMenuItem
@@ -134,7 +133,7 @@
             this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.оПрограммеToolStripMenuItem});
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
             // оПрограммеToolStripMenuItem
@@ -177,7 +176,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.AddSynonymButton);
             this.panel1.Controls.Add(this.addRelationButton);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.InfoButton);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.AddButton);
@@ -216,16 +214,6 @@
             this.addRelationButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.addRelationButton.UseVisualStyleBackColor = true;
             this.addRelationButton.Click += new System.EventHandler(this.AddRelationButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(549, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // InfoButton
             // 
@@ -376,23 +364,24 @@
             // 
             this.definitionsBindingSource.DataMember = "Definitions";
             // 
-            // button2
+            // addLinkButton
             // 
-            this.button2.Location = new System.Drawing.Point(829, 541);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 51);
-            this.button2.TabIndex = 24;
-            this.button2.Text = "Добавить ссылку";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.addLinkButton.Enabled = false;
+            this.addLinkButton.Location = new System.Drawing.Point(829, 541);
+            this.addLinkButton.Name = "addLinkButton";
+            this.addLinkButton.Size = new System.Drawing.Size(102, 51);
+            this.addLinkButton.TabIndex = 24;
+            this.addLinkButton.Text = "Добавить ссылку";
+            this.addLinkButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.addLinkButton.UseVisualStyleBackColor = true;
+            this.addLinkButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 622);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.addLinkButton);
             this.Controls.Add(this.ChangeButton);
             this.Controls.Add(this.deleteDefinitionButton);
             this.Controls.Add(this.panel2);
@@ -443,8 +432,6 @@
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.BindingSource descriptorsBindingSource1;
         private System.Windows.Forms.BindingSource definitionsBindingSource;
-        //private DEDatabaseDataSetTableAdapters.DefinitionsTableAdapter definitionsTableAdapter;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.Button addRelationButton;
@@ -454,7 +441,7 @@
         private System.Windows.Forms.Button deleteDefinitionButton;
         private System.Windows.Forms.ToolStripMenuItem показатьОтчетToolStripMenuItem;
         private System.Windows.Forms.Button AddSynonymButton;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button addLinkButton;
     }
 }
 
